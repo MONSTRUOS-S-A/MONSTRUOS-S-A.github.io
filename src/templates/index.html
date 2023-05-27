@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/issueindex.css' %}?v=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/common.css' %}?v=1">
+    
+    <title>Fiber Issues</title>
+</head>
+
+<body>
+  {% include 'header.html' %}
+    <main>
+        <section class="btn-section">
+          <a class="new-issue-btn" href="/add_issue">+ New issue</a>
+          <a class="btn-bulk" href="/bulk_insert"><i class='bx bx-list-plus'></i> Bulk insert</a>
+        </section>
+        
+        <div class="main-wrap">
+          <section class="filter-section">
+            <form method="POST">
+              {% csrf_token %}
+              <div class="inline-form"><small>Contains word</small>{{ my_data.form.word }}</div>
+              <div class="inline-form"><small>Orders by</small>{{ my_data.form.order_by }}</div>
+              <br>
+              <div class="inline-form"><small>Status</small>{{ my_data.form.status }}</div>
+              <div class="inline-form"><small>Priority</small>{{ my_data.form.priority }}</div>
+              <div class="inline-form"><small>Unassigned</small>{{ my_data.form.unassigned }}</div>
+              <div class="inline-form"><small>Assigned to</small>{{ my_data.form.assigned_to }}</div>
+              <div class="inline-form"><small>Created by</small>{{ my_data.form.created_by }}</div>
+              <button class="btn-search-filter" type="submit"><i class='bx bx-search-alt-2'></i> Search</button>
+          </form>
+          </section>
+          {% if not my_data.issues %}
+          <div class="no-issue-msg">
+            <p>No issues yet </p>
+            <i class='bx bx-happy-beaming'></i>
+          </div>
+          {% else %}
+          <section class="main-table">
+              <table>
+                  <tr>
+                    <th class="circle-tag-head">Type</th>
+                    <th class="circle-tag-head">Severity</th>
+                    <th class="circle-tag-head">Priority</th>
+                    <th class="standard-head">Subject</th>
+                    <th class="standard-head">Status</th>
+                    <th class="standard-head">Created</th>
+                    <th class="standard-head">Assigned</th>
+                  </tr>
+                  {% for trow in my_data.issues %}
+                  {% if trow.blocked == True %}
+                    <tr class="inner-tr-blocked">
+                  {% else %}
+                    <tr class="inner-tr">
+                  {% endif %}
+                      <td class="row-table">
+                        <div class="circle-tag
+                        {% if trow.type == 'Bug' %} type-bug
+                        {% elif trow.type == 'Question' %} type-question
+                        {% else %} type-enhancement
+                        {% endif %}
+                        "></div>
+                      </td>
+                      <td class="row-table">
+                        <div class="circle-tag
+                        {% if trow.severity == 'Wishlist' %} sev-wishlist
+                        {% elif trow.severity == 'Minor' %} sev-minor
+                        {% elif trow.severity == 'Normal' %} sev-normal
+                        {% elif trow.severity == 'Important' %} sev-important
+                        {% else %} sev-critical
+                        {% endif %}
+                        "></div>
+                      </td>
+                      <td class="row-table">
+                        <div class="circle-tag
+                        {% if trow.priority == 'Low' %} prio-low
+                        {% elif trow.priority == 'Normal' %} prio-normal
+                        {% else %} prio-high
+                        {% endif %}
+                        "></div>
+                      </td>
+                      <td>
+                        <a class= "link-issue"href="{% url 'issue_detail' trow.id %}">
+                        <p class="subject-id">#{{ trow.id }}</p> 
+                        <p class="subject-text">{{ trow.subject }}</p>
+                        {% if trow.blocked == True %}
+                        <i class='bx bx-lock-alt icon-row'></i>
+                        {% endif %}
+                        {% if trow.deadline != Null %}
+                        <i class='bx bx-time-five icon-row' style="color:grey"></i>
+                        {% endif %}
+                        </a>
+                      </td>
+                      <td>
+                        <p class="status">{{ trow.status }}</p>
+                      </td>
+                      <td>
+                        <p class="created-date">{{ trow.date }}</p>
+                      </td>
+                      <td >
+                          <div class="asigned-to-wrap">
+                            {% if trow.assigned_user == Null %}
+                            <img class= "asigned-to-img" src="{% static 'myapp/img/nouser.png' %}">
+                            <i class="asigned-to-text"> Not Assigned </i>
+                            {% else %}
+                            <a href="/user_page/{{trow.assigned_user.auth_user.pk}}/">
+                              <img class= "asigned-to-img" src="{{ trow.assigned_user.img_src.url }}" alt="">
+                            </a>
+                            <p class="asigned-to-text">{{ trow.assigned_user.auth_user.first_name }} {{ trow.assigned_user.auth_user.last_name }}</p>
+                            {% endif %}
+                          </div>
+                          
+                      </td>
+                    </tr>
+                    <tr class="tr-space"></tr>
+                  {% endfor %}
+                </table>
+          </section>
+          {% endif %}
+        </div>
+        
+    </main>
+</body>
+</html>

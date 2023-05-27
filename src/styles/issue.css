@@ -1,0 +1,536 @@
+:root{
+    --background-color: rgb(231, 229, 229);
+    --light-green: rgb(77, 228, 135);
+    --dark-green: rgb(43, 131, 77);
+    --light-grey: rgb(228, 228, 228);
+    --blue-link: rgb(4, 105, 163);
+    --red:  #e44057;
+}
+
+.main-issue{
+    display: flex;
+    justify-content: center;
+}
+
+.issue-wrap{
+    min-width: 70%;
+}
+
+.issue-number{
+    display: flex;
+    color: var(--blue-link);
+    margin-right: 7px;
+}
+
+.issue-title-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.issue-header-wrap{
+    background-color: white;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.left-title-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blocked-wrap{
+    display: flex;
+    color: whitesmoke;
+    background-color: #e44057;
+    padding: 3px;
+    border-radius: 2px;
+    gap: 3px;
+    font-size: 12px;
+}
+
+.tag-section{
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.tag{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 30px;
+    background-color: var(--light-grey);
+    color: var(--dark-green);
+    border-radius: 3px;
+}
+.btn-add-tag{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark-green);
+    width: 90px;
+    height: 30px;
+    border-radius: 3px;
+    font-size: 15px;
+    color: whitesmoke;
+    border: none;
+    cursor: pointer;
+}
+
+.issue-title-footer{
+    display: flex;
+    justify-content: space-between;
+}
+.created-date-issue{
+    color: grey;
+    font-weight: 100;
+}
+.created-by-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.created-by-text{
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+    color: var(--blue-link);
+    font-size: small;
+}
+
+.profile-img{
+    display: flex;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.issue-description{
+    background-color: white;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.attachments-section{
+    background-color: white;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.attachments-field{
+    border-radius: 10px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn-add-atachment{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark-green);
+    height: 30px;
+    width: 30px;
+    margin: 0;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.attachment{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.attachment-name{
+    color: var(--blue-link);
+}
+
+.activities-wrap{
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+ background-color: white;   
+}
+
+.activitie-main{
+    display: flex;
+    flex-direction: column;
+    
+    
+
+}
+
+.activitie{
+    background-color:whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.activitie-header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.activity-status{
+    display: flex;
+    gap: 5px;
+    font-size: 14px;    
+}
+
+.activity-tag{
+    display: flex;
+    align-items: center;
+    background-color: var(white);
+    border: 1px solid var(--dark-green);
+    padding-left: 2px;
+    padding-right: 2px;
+    font-weight: bold;
+    font-size: small;
+    border-radius: 4px;
+    color: var(--dark-green);
+}
+
+.name-activitie{
+    color: var(--blue-link);
+}
+
+.date-activie{
+    font-size: small;
+    font-weight: 300;
+}
+
+.activity-transition-icon{
+    display: flex;
+    align-items: center;
+    font-size: medium;
+    color: gray;
+}
+
+.first-field{
+    display: flex;
+
+}
+
+.second-field{
+    display: flex;
+
+}
+.issue-right-side{
+    width: 800px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    height: max-content;
+}
+
+
+.asigned-to-section{
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.asigned-to-content{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.asignation-buttons-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.btn-asignation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--light-grey);
+    height: 25px;
+    width: max-content;
+    padding: 4px;
+    border-radius: 6px;
+    border: none;
+    font-size: 10px;
+    color:var(--dark-green);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-type{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 25px;
+    width: 90px;
+    padding: 4px;
+    border-radius: 6px;
+    border: none;
+    font-size: 13px;
+    color:var(--dark-green);
+    cursor: pointer;
+    font-weight: bold;
+}
+hr{
+    border: none;
+    height: 1px;
+    background-color: var(--dark-green);
+}
+
+.setting-buttons-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+.btn-setting{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--light-grey);
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+    color: var(--dark-green);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-setting:hover{
+    border: none;
+    background-color: var(--dark-green);
+    color: whitesmoke;
+    transition: all .4s ease-in-out;
+}
+
+.btn-setting-red{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--red);
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+    color: whitesmoke;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.types-selectors-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.card-type{
+    background-color:  rgb(241, 241, 241);
+    display: flex;
+    justify-content: space-between;
+    width: 92%;
+    padding: 10px;
+    margin: 7px;
+    border-radius: 15px;
+}
+
+.text-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: small;
+    font-weight: 200;
+}
+.right-card-wrap{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.circle-tag-nw{
+    height: 12px;
+    width: 12px;
+    border-radius: 50px;
+    background-color: red;
+}
+
+.state{
+    margin-right: 10px;
+    font-size: medium;
+    font-weight: 400;
+}
+
+/*Edit page*/
+
+.edit-title-wrap{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.textarea-field{
+    height: 150px;
+ }
+
+.custom-input{
+    width: 100%;
+    background-color: var(--light-grey);
+    border: 1px solid var(--dark-green);
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.wrap-save-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bxs-save{
+  margin-right: 3px;
+}
+.btn-save-changes{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--dark-green);
+    width: max-content;
+    padding: 10px;
+    height: 30px;
+    font-size: 15px;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.btn-delete-attachment{
+    border: none;
+}
+
+.attachment-form-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.btn-upload{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark-green);
+    color: whitesmoke;
+    border: none;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.comment-form-wrap{
+    display: flex;
+    align-items: center;
+}
+
+.comment-form{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.btn-post-comment{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--dark-green);
+    width: max-content;
+    padding: 10px;
+    height: 30px;
+    font-size: 15px;
+    color: whitesmoke;
+    text-decoration: none;
+    gap: 3px;
+    margin: 7px;
+}
+
+.duedate-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: small;
+    color: grey;
+    gap: 3px;
+    margin-left: 5px;
+}
+
+.add-deadline-form-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.btn-add-deadline{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--light-grey);
+    width: max-content;
+    padding-inline: 3px;
+    height: 30px;
+    font-size: 15px;
+    color: var(--dark-green);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-add-deadline:hover{
+    border: none;
+    background-color: var(--dark-green);
+    color: whitesmoke;
+    transition: all .4s ease-in-out;
+}
+
+.select-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}

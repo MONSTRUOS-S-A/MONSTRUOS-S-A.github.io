@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/issue.css' %}?v=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/common.css' %}?v=1">
+
+    <title>Issue</title>
+</head>
+<body>
+  {% include 'header.html' %}
+  <main class="main-issue">
+    <section class="issue-wrap">
+      <header class="issue-header-wrap"> 
+        <section class="issue-title-header">
+          <div class="left-title-wrap">
+            <h1 class="issue-number">#{{issue.id}} </h1>
+            <h1>{{issue.subject}}</h1>
+            {% if issue.deadline != null %}
+            <div class="duedate-wrap">
+              <i class='bx bx-time-five '></i> 
+              <p>{{issue.deadline}}</p>
+            </div>
+            {% endif %}
+          </div>
+          {% if issue.blocked == False or issue.userblocker.auth_user == actual_user.auth_user and issue.blocked == True %}
+          <a id= "edit-issue"class="btn-setting"href="{% url 'edit_issue' issue.id %}"><i class='bx bx-edit' ></i></a>
+          {% endif %}
+        </section>
+        <h5>ISSUE</h5>
+        {% if issue.blocked == True %}
+        <div class="blocked-wrap">
+          <strong><i class='bx bx-lock-alt'> </i>Blocked</strong>
+          <p>This issue is currently blocked by {{issue.userblocker.auth_user.first_name}} </p>
+        </div>
+        {% endif %}
+        
+            <div class="issue-title-footer">
+              <div class="tag-section">
+                <article class="tag">
+                  problemon
+                </article>
+                <article class="tag">
+                  tusmu
+                </article>
+                <button class="btn-add-tag">Add tag +</button>
+              </div>
+              <div class="created-by-wrap">
+                <div class="created-by-text">
+                  <p>Created by {{ issue.creator_user.auth_user.first_name }} {{ issue.creator_user.auth_user.last_name }}</p>
+                  <p class="created-date-issue">{{ issue.date }}</p>
+                </div>
+                <a href="/user_page/{{issue.creator_user.auth_user.pk}}/">
+                  <img class= "profile-img" src="{{ issue.creator_user.img_src.url }}" alt="">
+                </a>
+              </div>
+            </div>
+          
+        </header>
+
+        <article class="issue-description">
+          <h4>Description</h4>
+          <p>{{ issue.description }}</p>
+        </article>
+
+        <div class="attachments-section">
+          <div class="attachments-field">
+            <p>{{total_attachments}} attachments</p>
+            
+            <form class="attachment-form-wrap" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ attachment_form.as_p }}
+              <button class = "btn-upload"type="submit">Upload</button>
+            </form>
+            
+          </div>
+          <div class="attachments-wrap">
+            {% for attachment in attachments %}
+            <div class="attachment">
+              <a href = "{{ attachment.file.url }}" class="attachment-name" target="_blank" download> <i class='bx bx-paperclip bx-rotate-90' ></i> {{ attachment.name }}</a>
+
+              <form method="POST" action="{% url 'delete_attachment' attachment.pk %}">
+                {% csrf_token %}
+                <button class = "btn-delete-attachment"type="submit"><i class='bx bx-trash' ></i></button>
+              </form>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <section class="activities-wrap">
+          <p>{{total_activities}} activities</p>
+          {% for activity in activities %}
+          <article class="activitie">
+            <a href="/user_page/{{activity.author.auth_user_id}}/">
+              <img  class = "profile-img" src="{{activity.author.img_src.url}}" alt="">
+            </a>
+            <div class="activitie-main">
+              <div class="activitie-header">
+                <p class="name-activitie">{{activity.author.auth_user.first_name}} {{activity.author.auth_user.last_name}}</p>
+                <p class="date-activie">{{activity.timestamp}}</p>
+              </div>
+              <div class="activity-status"> 
+                <p class="activity-tag">{{activity.get_action_display}}</p>
+              {% if activity.action == 'MOD' %}
+                <p>STATUS: {{activity.atrib5}} > {{activity.atrib6}}</p>
+                <p>SUBJECT: {{activity.atrib1}} > {{activity.atrib2}}</p>
+                <p>DESCRIPTION: {{activity.atrib3}} > {{activity.atrib4}}</p>
+              {% elif activity.action == 'PRY' %}
+                <p class="first-field">{{activity.atrib1}} > {{activity.atrib2}}</p>
+              {% elif activity.action == 'SEV' %}
+                <p class="first-field">{{activity.atrib1}} > {{activity.atrib2}}</p>
+              {% elif activity.action == 'TYP' %}
+                <p class="first-field">{{activity.atrib1}} > {{activity.atrib2}}</p>
+              {% elif activity.action == 'TAG' %}
+                <p class="first-field">{{activity.atrib1}}</p>
+              {% elif activity.action == 'AAT' %}
+                <p class="first-field">{{activity.atrib1}}</p>
+              {% elif activity.action == 'DAT' %}
+                <p class="first-field">{{activity.atrib1}}</p>
+              {% elif activity.action == 'ASS' %}
+                <p class="first-field">{{activity.atrib1}} > {{activity.atrib2}}</p>
+              {% elif activity.action == 'BCK' %}
+                <p class="first-field">{{activity.atrib1}} > {{activity.atrib2}}</p>
+              {% elif activity.action == 'DUE' %}
+                <p class="first-field">{{activity.atrib7}} > {{activity.atrib8}}</p>
+              {% endif %}
+            </div>
+              </div> 
+          </article>
+          {% endfor %}
+        </section>
+        
+        <section class="activities-wrap">
+          <p>{{total_comments}} comments</p>
+          {% for comment in comments %}
+          <article class="activitie">
+            <a href="/user_page/{{comment.author.auth_user_id}}/">
+              <img  class = "profile-img" src="{{comment.author.img_src.url}}" alt="">
+            </a>
+            <div class="activitie-main">
+              <div class="activitie-header">
+                <p class="name-activitie">{{comment.author.auth_user.first_name}} {{comment.author.auth_user.last_name}}</p>
+                <p class="date-activie">{{comment.created_at}}</p>
+              </div>
+              <small>
+                {{comment.content}}
+              </small>
+            </div>
+          </article>
+          {% endfor %}
+          <hr>
+          <div class="comment-field">
+            <small><i class='bx bx-chat' ></i> Add your comment</small>
+            <div class="comment-form-wrap">
+                <img  class = "profile-img" src="{{actual_user_icon.url}}" alt="">
+                <form class="comment-form" method="post" action="{% url 'add_comment' issue_id=issue.id %}">
+                  {% csrf_token %}
+                  {{ comment_form.content }}
+                  {% if comment_form.content.errors %}
+                    <p class="text-danger">{{ comment_form.content.errors }}</p>
+                  {% endif %}
+                  <button type="submit" class="btn-post-comment"><i class='bx bx-send'></i> Post</button>
+                </form>
+              
+              
+              
+            </div>
+        </div>
+        
+        </section>
+
+      </section>
+     <section class="issue-right-side">
+        <section class="types-selectors-wrap">
+            <article class="card-type">
+                <p class="text-title">type</p>
+                <div class="right-card-wrap">
+                  <form class = "select-form" method="post">
+                    {% csrf_token %}
+                    <select name="type" id="type" onchange="this.form.submit()" class="btn-type" ">
+                      <option value="Bug" {% if issue.type == "Bug" %} selected {% endif %}>Bug</option>
+                      <option value="Question" {% if issue.type == "Question" %} selected {% endif %}>Question</option>
+                      <option value="Enhancement" {% if issue.type == "Enhancement" %} selected {% endif %}>Enhancement</option>
+                    </select>
+                  </form>
+                  <div class="circle-tag
+                  {% if issue.type == 'Bug' %} type-bug
+                  {% elif issue.type == 'Question' %} type-question
+                  {% else %} type-enhancement
+                  {% endif %}
+                  "></div>
+                </div>
+            </article>
+            <article class="card-type">
+              <p class="text-title">severity</p>
+                <div class="right-card-wrap">
+                  <form class = "select-form" method="post">
+                    {% csrf_token %}
+                    <select name="severity" id="severity" onchange="this.form.submit()" class="btn-type" ">
+                      <option value="Wishlist" {% if issue.severity == "Wishlist" %} selected {% endif %}>Wishlist</option>
+                      <option value="Minor" {% if issue.severity == "Minor" %} selected {% endif %}>Minor</option>
+                      <option value="Normal" {% if issue.severity == "Normal" %} selected {% endif %}>Normal</option>
+                      <option value="Important" {% if issue.severity == "Important" %} selected {% endif %}>Important</option>
+                      <option value="Critical" {% if issue.severity == "Critical" %} selected {% endif %}>Critical</option>
+                    </select>
+                  </form>
+                  <div class="circle-tag
+                  {% if issue.severity == 'Wishlist' %} sev-wishlist
+                  {% elif issue.severity == 'Minor' %} sev-minor
+                  {% elif issue.severity == 'Normal' %} sev-normal
+                  {% elif issue.severity == 'Important' %} sev-important
+                  {% else %} sev-critical
+                  {% endif %}
+                  "></div>
+                </div>
+            </article>
+            <article class="card-type">
+                <p class="text-title">priority</p>
+                <div class="right-card-wrap">
+                    <form class = "select-form" method="post">
+                    {% csrf_token %}
+                    <select name="priority" id="priority" onchange="this.form.submit()" class="btn-type">
+                      <option value="Low" {% if issue.priority == "Low" %} selected {% endif %}>Low</option>
+                      <option value="Normal" {% if issue.priority == "Normal" %} selected {% endif %}>Normal</option>
+                      <option value="High" {% if issue.priority == "High" %} selected {% endif %}>High</option>
+                    </select>
+                  </form> 
+                  <div class="circle-tag
+                  {% if issue.priority == 'Low' %} prio-low
+                  {% elif issue.priority == 'Normal' %} prio-normal
+                  {% else %} prio-high
+                  {% endif %}
+                  "></div>
+                </div>
+            </article>
+        </section>
+        <hr>
+        <section class="asigned-to-section">
+          <p>Asigned</p>
+          <div class="asigned-to-section-wrap">
+            <div class="asigned-to-content">
+              {% if issue.assigned_user == Null %}
+              <img class= "profile-img" src="{% static 'myapp/img/nouser.png' %}">
+              <small style="font-style: italic;"> Not Assigned </small>
+              {% else %}
+              <a href="/user_page/{{issue.assigned_user.auth_user.pk}}/">
+                <img class= "profile-img" src="{{ issue.assigned_user.img_src.url }}" alt="">
+              </a>
+              <small>{{ issue.assigned_user.auth_user.first_name }} {{ issue.assigned_user.auth_user.last_name }}</small>
+              {% endif %}
+            </div>
+            {% if issue.blocked == False or issue.userblocker.auth_user == actual_user.auth_user and issue.blocked == True %}
+            <div class="asignation-buttons-wrap">
+                <form method="post">
+                  {% csrf_token %}
+                  <select name="assigned_user" id="assigned_user" onchange="this.form.submit()" class="btn-asignation" ">
+                    <!-- Never empty cause at least authentificated user exists-->
+                    <option value="" selected disabled hidden>Assign to new user</option>
+                    {% for user in all_users %}
+                    <option value={{user.pk}}> {{user.auth_user.first_name}} {{user.auth_user.last_name}} </option>
+                    {% endfor %}
+                  </select>
+                </form>
+              
+              <form method="post">
+                {% csrf_token %}
+                <button type="submit" name="assigned_user" class="btn-asignation" value="{{request.user.pk}}">Assign to me</button>
+              </form>
+
+              <form method="post">
+                {% csrf_token %}
+                <button type="submit" name="assigned_user" class="btn-asignation" value="-1">Assign to No-one</button>
+              </form>
+            </div>
+            {% endif %}
+          </div>
+        </section>
+        <hr>
+        <section class="asigned-to-section">
+          <p>Watchers</p>
+          <div class="asigned-to-section-wrap">
+            {% for watcher in issue.watchers.all %}
+              <div class="asigned-to-content">
+                <a href="/user_page/{{watcher.auth_user.pk}}/">
+                  <img class= "profile-img" src="{{ watcher.img_src.url }}" alt="">
+                </a>
+                <small>{{ watcher.auth_user.first_name }} {{ watcher.auth_user.last_name }}</small>
+                {% if issue.blocked == False or issue.userblocker.auth_user == actual_user.auth_user and issue.blocked == True %}
+                <form method="post" style="margin-left: auto;">
+                  {% csrf_token %}
+                  <button type="submit" name="new_watcher" class="btn-setting" value="-{{watcher.auth_user.pk}}" style="margin-left: auto;">
+                    <i class='bx bx-eraser'></i>
+                  </button>
+                </form>
+                {% endif %}
+
+              </div>
+            {% empty %}
+              <div class="asigned-to-content">
+                <img class= "profile-img" src="{% static 'myapp/img/nouser.png' %}">
+                <small style="font-style: italic;"> Not Assigned </small>
+              </div>
+            {% endfor  %}
+          </div>
+          {% if issue.blocked == False or issue.userblocker.auth_user == actual_user.auth_user and issue.blocked == True %}
+            <div class="asignation-buttons-wrap">
+              <form method="post">
+                {% csrf_token %}
+                <select name="new_watcher" id="new_watcher" onchange="this.form.submit()" class="btn-asignation">
+                  <!-- Never empty cause at least authentificated user exists-->
+                  <option value="" selected disabled hidden>Assign new watcher</option>
+                  {% for user in all_users %}
+                  <option value={{user.pk}}> {{user.auth_user.first_name}} {{user.auth_user.last_name}} </option>
+                  {% endfor %}
+                </select>
+              </form>
+            
+            <form method="post">
+              {% csrf_token %}
+              {% if user_is_watcher %}
+                <button type="submit" name="new_watcher" class="btn-asignation" value="-{{request.user.pk}}">
+                  <i class='bx bx-hide'></i>
+                  Unwatch
+                </button>
+              {% else %}
+                <button type="submit" name="new_watcher" class="btn-asignation" value="{{request.user.pk}}">
+                  <i class='bx bx-show'></i>
+                  Watch
+                </button>
+            {% endif %}
+            </form>
+          </div>
+        </section>
+
+        <hr>
+        <section class="setting-buttons-section">
+          <form action="{% url 'block_issue' issue_id=issue.id %}" method="POST">
+            {% csrf_token %}
+            {% if issue.blocked == True %}
+            <button type = "submit" class="btn-setting-red"><i class='bx bx-lock-alt '></i></button>
+            {% else %}
+            <button type = "submit" class="btn-setting"><i class='bx bx-lock-alt '></i></button>
+            {% endif %}
+          </form>
+
+          {% if issue.deadline != null %}
+          <form action="{% url 'delete_deadline' issue_id=issue.id %}" method="POST">
+            {% csrf_token %}
+            <button type = "submit" class="btn-setting-red"><i class='bx bx-time-five'></i></button>
+          </form>
+          {% else %}
+          <form class = "add-deadline-form-wrap" method="post" action="{% url 'add_deadline' issue_id=issue.id %}">
+            {% csrf_token %}
+            {{ deadline_form.as_p }}
+            <button type="submit" class="btn-add-deadline"> <i class='bx bx-time-five'></i> Set due date</button>
+          </form>
+          {% endif %}
+          
+          
+          <form action="{% url 'delete_issue' pk=issue.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn-setting"><i class='bx bx-trash' ></i></button>
+          </form>
+        </section>
+        {% endif %}
+        
+    </main>
+</body>
+</html>

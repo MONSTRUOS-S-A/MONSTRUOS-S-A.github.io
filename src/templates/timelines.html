@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/common.css' %}?v=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/issue.css' %}?v=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/timeline.css' %}?v=1">
+    <title>Timelines</title>
+</head>
+<body>  
+  {% include 'header.html' %}
+    <main class="main-timelines" style="width: auto; height: auto; display: contents;">
+        <div style="margin-left: 50px; margin-right: 50px; margin-top: 75px;">
+            <h1>Activities</h1>
+            {% for activity in acts %}
+            <!-- Aquí puedes incluir el contenido que quieras mostrar para cada actividad -->
+            <div class="activity">
+                <article class="activitie">
+                    <div class="activity-status"> 
+                        <p class="activitie">{{activity.issue.subject}}</p>
+                        <p class="activity-tag">{{activity.get_action_display}}</p>
+                    {% if activity.action == 'MOD' %}
+                        <p>STATUS: {{activity.atrib5}} > {{activity.atrib6}}</p>
+                        <p>SUBJECT: {{activity.atrib1}} > {{activity.atrib2}}</p>
+                        <p>DESCRIPTION: {{activity.atrib3}} > {{activity.atrib4}}</p>
+                    {% elif activity.action == 'PRY' %}
+                        <p class="first-field">{{activity.atrib1}} > {{activity.atrib2}}</p>
+                    {% elif activity.action == 'SEV' %}
+                        <p class="first-field">{{activity.atrib1}} > {{activity.atrib2}}</p>
+                    {% elif activity.action == 'TYP' %}
+                        <p class="first-field">{{activity.atrib1}} > {{activity.atrib2}}</p>
+                    {% elif activity.action == 'TAG' %}
+                        <p class="first-field">{{activity.atrib1}}</p>
+                    {% elif activity.action == 'AAT' %}
+                        <p class="first-field">{{activity.atrib1}}</p>
+                    {% elif activity.action == 'DAT' %}
+                        <p class="first-field">{{activity.atrib1}}</p>
+                    {% elif activity.action == 'ASS' %}
+                        <p class="first-field">{{activity.atrib1}} > {{activity.atrib2}}</p>
+                    {% elif activity.action == 'BCK' %}
+                        <p class="first-field">{{activity.atrib1}} > {{activity.atrib2}}</p>
+                    {% elif activity.action == 'DUE' %}
+                        <p class="first-field">{{activity.atrib7}} > {{activity.atrib8}}</p>
+                    {% endif %}
+                    </div> 
+                </article>
+            </div>
+            {% endfor %}
+            <h1 style="margin-top: 50px;">Watching</h1>
+                {% for watching in watch %}
+                <!-- Aquí puedes incluir el contenido que quieras mostrar para cada actividad -->
+                <div class="activity">
+                    <p>{{ watching.subject }}</p>
+                </div>
+            {% endfor %}   
+        </div>
+    </main>
+
+  
+    </body>
+</html>

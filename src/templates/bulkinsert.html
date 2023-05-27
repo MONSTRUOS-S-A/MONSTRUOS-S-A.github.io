@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/newissue.css' %}?v=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/common.css' %}?v=1">
+
+   
+    <title>New bulk insert</title>
+</head>
+<body>
+    {% include 'header.html' %}
+  <main class="new-issue-main">
+    <section class="new-issue-section">
+        <header class="new-issue-header">
+            <h2>New bulk insert</h2> 
+            <a class="close-create-issue-btn" href="/issue_index">
+                <i class='bx bx-x'></i>
+            </a>
+        </header>
+        <form class="new-issue-form-wrap" method="post" action="{% url 'create_bulk' %}">
+            {% csrf_token %}
+            <div class="top-section">
+                <div class="left-section">
+                    <p>Type below the name of the issues</p>
+                    <textarea  class = "custom-input" name="description" id="" cols="30" rows="10" placeholder="One item per line..."></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn-create-issue">CREATE</button>
+        </form>
+        
+        
+    </section>
+  </main>
+</body>
+</html>

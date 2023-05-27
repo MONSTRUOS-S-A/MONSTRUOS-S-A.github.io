@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/issue.css' %}?v=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/common.css' %}?v=1">
+    <title>Editting issue</title>
+</head>
+<body>
+  {% include 'header.html' %}
+    <main class="main-issue">
+      <section class="issue-wrap">
+        <header class="issue-header-wrap"> 
+          <section class="issue-title-header">
+            <div class="edit-title-wrap">
+              <h1>ISSUE</h1>
+              <h1 class="issue-number"> #{{issue.id}} </h1>
+            </div>
+            
+          </section>
+            <div class="issue-title-footer">
+              <p>Edit the fields and then press the button to save your changes</p>
+            </div>
+          
+        </header>
+        <form method="POST" action="{% url 'edit_issue' issue.id %}">
+            {% csrf_token %}
+            <article class="issue-description">
+              <!--<button class="select-status-dropdown">Select status <i class='bx bx-chevron-down status-dropdown'></i></button>-->
+              <h4>Status:</h4>
+              <select name="status" id="status">                      
+                  <option value="New">New</option>
+                  <option value="inprogress">In Progress</option>
+                  <option value="readyfortest">Ready For Test</option>
+                  <option value="closed">Closed</option>
+                  <option value="needsinfo">Needs Info</option>
+              </select>
+              <h4>Subject</h4>
+              <input class="custom-input" type="text" name="subject" value="{{issue.subject}}" class="textarea-field"></input>
+          
+              <h4>Description</h4>
+              <textarea class="custom-input textarea-field" name="description">{{issue.description}}</textarea>
+            </article>
+            <div class="wrap-save-button">
+              <button type="submit" class="btn-save-changes"><i class='bx bxs-save'></i>Save changes</button>
+            </div>
+          </form>
+          
+      </section>
+        
+    </main>
+</body>
+</html>

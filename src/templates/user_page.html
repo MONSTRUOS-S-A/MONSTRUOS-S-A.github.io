@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/common.css' %}?v=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/settings.css' %}?v=1">
+
+    <title>Your profile</title>
+</head>
+<body>  
+  {% include 'header.html' %} 
+    <main class="edit-main-wrap" style="margin-top: 50px;">
+        {% if user_info.auth_user.pk == request.user.pk %}
+        <p class="edit-info-text">This is what we know about you!</p>
+        {% endif %}
+        <div class="wrap-edit-content">
+          <div class="edit-wrapview">
+            <section class="left-edit-content">
+                <!-- Image -->
+                <div>
+                    <img id="profile picture" class="profile-img-edit" src={{user_info.img_src.url}} alt="">
+                </div>
+            </section>
+            <section class="right-edit-content">
+                <!-- Username-->
+                <h4>Username </h4>
+              <input class = "custom-input" type="text" value={{user_info.auth_user}} disabled>
+            <!-- First & second name (might not have any value)-->
+              <h4>First Name </h4>
+              <input class = "custom-input" type="text" value={{user_info.auth_user.first_name}} disabled>
+
+              <h4>Last Name </h4>
+               {% if user_info.auth_user.last_name == "" %}
+                <input class = "custom-input" type="text"  disabled>
+               {% else %}
+                <input class = "custom-input" type="text"  value={{user_info.auth_user.last_name}}  disabled>
+              {% endif %}
+
+            <!-- email -->
+              <h4>Email </h4>
+              <input  class = "custom-input" type="text"  value={{user_info.auth_user.email}} disabled>
+            <!-- Bio -->
+            <h4>Bio </h4>
+              <textarea class = "custom-input" name="new_bio" maxlength="200" disabled>{{user_info.bio}}</textarea>
+              <!-- Buttons -->
+              <div class="edit-btn-section">
+                <button type="submit" class="btn-go-back" style="cursor: pointer" onClick="
+                    if (document.referrer.includes('/user_page/') || document.referrer.includes('/user_settings/')) window.history.go(-3);
+                    window.history.go(-1);">
+                  <i class='bx bx-arrow-back'></i>  
+                  Go back
+                </button>
+                <a class="btn-go-back" href="{% url 'user_timeline' user_info.auth_user.pk %}">View timeline</a>
+                {% if user_info.auth_user.pk == request.user.pk %}
+                <a class="btn-go-back" href="/user_settings/"> <i class='bx bxs-edit'></i> Edit profile</a>
+                {% endif %}
+                </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+</body>
+</html>

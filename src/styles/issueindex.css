@@ -1,0 +1,240 @@
+:root{
+    --background-color: rgb(231, 229, 229);
+    --light-green: rgb(77, 228, 135);
+    --dark-green: rgb(43, 131, 77);
+    --light-grey: rgb(228, 228, 228);
+
+    --blue-link: rgb(4, 105, 163);
+    --red: #e44057;
+    --background-red: rgba(228,64,87,.15);;
+}
+
+main{
+    height: 100%;   
+}
+
+p{
+    display: flex;
+}
+.main-tittle{
+    margin: 20px;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+
+.tr-space{
+    height: 10px;
+}
+
+.inner-tr:hover{
+    transition: all .2s ease-out;
+    background-color: var(--light-grey);
+    border-radius: 5px;
+    
+}
+
+td {
+    border-style: solid none;
+    border-color: transparent;
+    padding: 10px;
+}
+
+td:first-child {
+    border-left-style: solid;
+    border-top-left-radius: 10px; 
+    border-bottom-left-radius: 10px;
+    
+}
+td:last-child {
+    border-right-style: solid;
+    border-bottom-right-radius: 10px; 
+    border-top-right-radius: 10px; 
+}
+
+.inner-tr-blocked{
+    background-color: var(--background-red);
+    border-radius: 20px;
+}
+
+th{
+    padding: 10px;
+}
+
+
+.main-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.main-table{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px;
+    width: max-content;
+}
+.circle-tag{
+    height: 12px;
+    width: 12px;
+    border-radius: 50px;
+    margin: auto;
+}
+
+.standard-head{
+    text-align: left;
+}
+
+.btn-section{
+
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin: 20px;
+}
+.new-issue-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   background-color: var(--dark-green);
+   color: whitesmoke;
+   border: none;
+   font-weight: 400;
+   border-radius: 10px;
+   height: 30px;
+   width: 120px;
+   margin: 5px;
+   text-decoration: none;
+}
+
+.new-issue-btn:hover{
+    cursor: pointer;
+    transition: all .5s ease-out;
+    background-color: var(--light-grey);
+    color: var(--dark-green);
+    border: 2px solid var(--dark-green);
+
+}
+
+.btn-bulk{
+    display: flex;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark-green);
+    color: whitesmoke;
+    border: none;
+    font-weight: 400;
+    border-radius: 10px;
+    gap: 3px;
+    width: 120px;
+    height: 30px;
+}
+
+.btn-bulk:hover{
+    cursor: pointer;
+    transition: all .5s ease-out;
+    background-color: var(--light-grey);
+    color: var(--dark-green);
+    border: 2px solid var(--dark-green);
+
+}
+
+.status{
+    display: inline-block;
+    font-size: 15px;
+}
+
+.status-dropdown{
+    display: inline-block;
+    font-size: 15px;
+    cursor:pointer;
+}
+
+.created-date{
+    font-size: 15px;
+}
+
+.asigned-to-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.asigned-to-text{
+    display: inline-block;
+    margin: 2px;
+    font-size: 15px;
+}
+.asigned-to-img{
+display: inline-block;
+ height:30px;
+ width: 30px;
+ border-radius: 50%;
+ margin: 2px;
+}
+
+.subject-id{
+    display: inline-block;
+    color: rgb(4, 105, 163);
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.subject-text{
+    display: inline-block;
+    font-size: 15px;
+}
+
+.filter-section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    background-color: whitesmoke;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 10px;
+}
+
+.btn-search-filter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: var(--dark-green);
+    color: whitesmoke;
+    border-radius: 3px;
+    padding: 5px;
+    gap: 3px;
+}
+
+.custom-input{
+    width: 100%;
+    background-color: var(--light-grey);
+    border: 1px solid var(--dark-green);
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.inline-form {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.icon-row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--red);
+}

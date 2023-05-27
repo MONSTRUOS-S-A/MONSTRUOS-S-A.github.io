@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/welcome.css' %}?v=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'myapp/css/common.css' %}?v=1">
+
+    <title>Welcome</title>
+</head>
+<body>
+    <main class="main-wrap">
+        <section class="wrapper">
+            <h2 class="page-title"><i class='bx bx-rocket' ></i> Fiber Issues</h2>
+            <h1 class="welcome-title">Welcome!</h1>
+            <p class="welcome-phrase">A lot of issues are waiting for you!</p>
+                <div class="wrap-content">
+      
+                  {% if user.is_authenticated%}
+                  <p>You are signed in as {{user.email}}</p>
+                  <a class="google-login-btn" href="logout/">Log out</a>
+
+                  {% else %}
+                  <p>Login with Google</p>
+                  {% load socialaccount %}
+                  <a class="google-login-btn" href="{% provider_login_url 'google' %}?next=/">
+                    <i class='bx bxl-google'></i>
+                  </a>
+                  {% endif %}
+                  
+                </div>
+                <p class="footer-phrase">This app won't solve your issues, but maybe It will help you to manage them</p>
+        </section>
+      
+      </section>
+    </main>
+</body>
+</html>
