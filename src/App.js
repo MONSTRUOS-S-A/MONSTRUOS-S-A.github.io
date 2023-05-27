@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Dios nos traiga confesaos 
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org" 
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+import WelcomeScreen from './screens/WelcomeScreen';
+import MainScreen from './screens/MainScreen';
+import NewIssue from './screens/NewIssueScreen';
+import BulkInsert from './screens/BulkInsertScreen';
+
+const App = () => {
+  return ( 
+      <BrowserRouter>
+        <Routes>
+          <Route path = "/" element = {<Navigate to = "/login" />} />
+          <Route path = "/login" element = {<WelcomeScreen />} />
+          <Route path = "/main" element = {<MainScreen />} />
+          <Route path = "/new_issue" element = {<NewIssue />} />
+          <Route path = "/bulk_insert" element = {<BulkInsert />} />
+
+        </Routes>
+      </BrowserRouter>
   );
-}
+};
 
 export default App;
