@@ -1,6 +1,6 @@
 import { getAllIssues } from "../API/issues.api";
 import { IssueCard } from "../components/IssueCard"
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 export function IssuesList() {
