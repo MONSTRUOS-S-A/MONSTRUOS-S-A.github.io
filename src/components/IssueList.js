@@ -39,7 +39,7 @@ export function IssuesList() {
           </tr>
         </tbody>
       </table>
-      {
+      {//Aixo esta posat fora per provar si funciona
         issues.map((issue) => (
           <IssueCard key={issue.id} issue={issue} />
         ))
