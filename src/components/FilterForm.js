@@ -1,5 +1,5 @@
 import React from "react";
-import { getAllUsers } from "../API/issues.api";
+import { getAllUsers } from "../API/users.api";
 import { useState, useEffect } from "react";
 
 export function FilterForm() {
