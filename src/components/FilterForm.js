@@ -1,4 +1,5 @@
-import { getAllUsers, getIssuesFiltered } from "../API/issues.api";
+import React from "react";
+import { getAllUsers } from "../API/issues.api";
 import { useState, useEffect } from "react";
 
 export function FilterForm({ onSearch }) {
