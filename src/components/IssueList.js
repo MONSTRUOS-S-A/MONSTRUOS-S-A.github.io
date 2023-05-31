@@ -23,27 +23,32 @@ export function IssuesList() {
   };
 
   return (
-
     <div className="issues-list-container">
-      <FilterForm onSearch={handleSearch} />
-      <table>
-        <tbody>
-          <tr>
-            <th className="circle-tag-head">Type</th>
-            <th className="circle-tag-head">Severity</th>
-            <th className="circle-tag-head">Priority</th>
-            <th className="standard-head">Subject</th>
-            <th className="standard-head">Status</th>
-            <th className="standard-head">Created</th>
-            <th className="standard-head">Assigned</th>
-          </tr>
-          {
-            issues.map((issue) => (
-              <IssueCard key={issue.issue_id} issue={issue} />
-            ))
-          }
-        </tbody>
-      </table>
+      <section className="filter-section">
+        <FilterForm onSearch={handleSearch} />
+      </section>
+      <section className="main-table">
+
+        <table>
+          <tbody>
+            <tr>
+              <th className="circle-tag-head">Type</th>
+              <th className="circle-tag-head">Severity</th>
+              <th className="circle-tag-head">Priority</th>
+              <th className="standard-head">Subject</th>
+              <th className="standard-head">Status</th>
+              <th className="standard-head">Created</th>
+              <th className="standard-head">Assigned</th>
+            </tr>
+            {
+              issues.map((issue) => (
+                <IssueCard key={issue.issue_id} issue={issue} />
+              ))
+            }
+          </tbody>
+        </table>
+      </section>
     </div >
+
   );
 }
