@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function FilterForm() {
   return (
     <form method="POST">
