@@ -1,0 +1,35 @@
+
+:root{
+    --background-color: rgb(231, 229, 229);
+    --light-green: rgb(77, 228, 135);
+    --dark-green: rgb(43, 131, 77);
+    --light-grey: rgb(228, 228, 228);
+    /*--light-grey: #b3b3b3;*/
+    --blue-link: rgb(4, 105, 163);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    margin:0;
+   /* overflow: hidden;*/
+
+}
+
+main{
+    height: 100%;   
+}
+
+.main-timelines{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+}

@@ -19,7 +19,6 @@ const WelcomeScreen = () => {
             <a className="google-login-btn" href="logout/">Log out</a>
             <p>Login with Google</p>
             <Link className="google-login-btn" to = "/main">
-
             </Link>
           </div>
           <p className="footer-phrase">This app won't solve your issues, but maybe it will help you manage them</p>

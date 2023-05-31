@@ -11,3 +11,19 @@ export const getAllIssues = () => {
 export const getAllUsers = () => {
   return issuesApi.get('/users');
 }
+
+export const getUser = (id) => {
+  return issuesApi.get(`/users/${id}`);
+}
+
+export const getUserActivities = (id) => {
+  return issuesApi.get(`/users/${id}/activities`);
+}
+
+export const getUserDetail = (id) => {
+  return issuesApi.get(`/users/${id}/issues_watched`);
+}
+
+export const postEditProfile = (id, data) => {
+  return issuesApi.post(`/users/${id}`, data)
+}
