@@ -4,15 +4,14 @@ import React, { useEffect, useState } from "react";
 
 
 export function IssuesList() {
-
   const estatInicial = [];
-  const [issues, setIssue] = useState(estatInicial);
+  const [issues, setIssues] = useState(estatInicial);
 
   useEffect(() => {
     async function loadIssues() {
       const res = await getAllIssues();
       console.log(res.data);
-      setIssue(res.data);
+      setIssues(res.data);
     }
     loadIssues();
   }, []);

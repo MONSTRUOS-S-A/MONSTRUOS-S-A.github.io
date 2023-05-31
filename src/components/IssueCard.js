@@ -1,10 +1,9 @@
 import React from "react";
 
 export function IssueCard({ issue }) {
-  console.log(issue.blocked);
   return (
     <React.Fragment key={issue.issue_id}>
-      {issue.blocked ? (
+      {issue.is_blocked ? (
         <tr className="inner-tr-blocked">
           <td className="row-table">
             <div className={`circle-tag ${issue.type === 'Bug' ? 'type-bug' : issue.type === 'Question' ? 'type-question' : 'type-enhancement'}`}></div>
@@ -19,7 +18,7 @@ export function IssueCard({ issue }) {
             <a className="link-issue" href="{% url 'issue_detail' issue.id %}">
               <p className="subject-id">#{issue.id}</p>
               <p className="subject-text">{issue.subject}</p>
-              {issue.blocked && <i className="bx bx-lock-alt icon-row"></i>}
+              {issue.is_blocked && <i className="bx bx-lock-alt icon-row"></i>}
               {issue.deadline != null && <i className="bx bx-time-five icon-row" style={{ color: 'grey' }}></i>}
             </a>
           </td>
@@ -45,7 +44,7 @@ export function IssueCard({ issue }) {
             <a className="link-issue" href="{% url 'issue_detail' issue.id %}">
               <p className="subject-id">#{issue.id}</p>
               <p className="subject-text">{issue.subject}</p>
-              {issue.blocked && <i className="bx bx-lock-alt icon-row"></i>}
+              {issue.is_blocked && <i className="bx bx-lock-alt icon-row"></i>}
               {issue.deadline != null && <i className="bx bx-time-five icon-row" style={{ color: 'grey' }}></i>}
             </a>
           </td>

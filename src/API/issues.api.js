@@ -7,3 +7,7 @@ const issuesApi = axios.create({
 export const getAllIssues = () => {
   return issuesApi.get('/issues');
 }
+
+export const getAllUsers = () => {
+  return issuesApi.get('/users');
+}

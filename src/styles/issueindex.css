@@ -232,7 +232,8 @@ display: inline-block;
 }
 
 .inline-form {
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
     margin-right: 10px;
 }
 
