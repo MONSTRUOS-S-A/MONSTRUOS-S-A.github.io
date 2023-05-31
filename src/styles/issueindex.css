@@ -10,7 +10,7 @@
 }
 .issues-list-container {
     max-height: 500px; /* Ajusta la altura máxima según tus necesidades */
-    overflow-y: auto; /* Agrega desplazamiento vertical si el contenido excede el tamaño máximo */
+   
   }
 
 main{

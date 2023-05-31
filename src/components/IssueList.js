@@ -10,14 +10,15 @@ export function IssuesList() {
 
 
 
-  /*useEffect(() => {
+  useEffect(() => {
     async function loadIssues() {
       const res = await getAllIssues();
       console.log(res.data);
       setIssues(res.data);
     }
     loadIssues();
-  }, []);*/
+  }, []);
+
   const handleSearch = (filteredIssues) => {
     setIssues(filteredIssues.data);
   };
