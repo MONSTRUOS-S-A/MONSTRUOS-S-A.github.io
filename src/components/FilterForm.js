@@ -1,7 +1,7 @@
-import { getAllUsers } from "../API/issues.api";
+import { getAllUsers, getIssuesFiltered } from "../API/issues.api";
 import { useState, useEffect } from "react";
 
-export function FilterForm() {
+export function FilterForm({ onSearch }) {
   const [inputs, setInputs] = useState({});
 
   const handleChange = (event) => {
@@ -14,8 +14,16 @@ export function FilterForm() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const status = getCheckedValues("status");
+    const priority = getCheckedValues("priority");
+    const assignedTo = getCheckedValues("assignedTo");
+    const unassigned = inputs.unassigned ? "unassigned" : "";
+    const createdBy = getCheckedValues("createdBy");
+    const searchword = inputs.searchword;
+    const orderBy = inputs.orderBy;
+
     console.log("Formulario enviado:");
     console.log("Contains word:", inputs.searchword);
     console.log("Orders by:", inputs.orderBy);
@@ -24,6 +32,10 @@ export function FilterForm() {
     console.log("Assigned to:", getCheckedValues("assignedTo"));
     console.log("Created by:", getCheckedValues("createdBy"));
     console.log("Unassigned:", getCheckedValues("unassigned"));
+    const issues = await getIssuesFiltered(status, priority, assignedTo, unassigned, createdBy, searchword, orderBy);
+    console.log(issues);
+    onSearch(issues);
+
   };
 
   const estatInicial = [];
@@ -41,7 +53,8 @@ export function FilterForm() {
   const getCheckedValues = (section) => {
     return Object.entries(inputs)
       .filter(([name, value]) => name.startsWith(section) && value)
-      .map(([name, value]) => name.replace(`${section}-`, ""));
+      .map(([name, value]) => name.replace(`${section}-`, ""))
+      .join(",");
   };
 
   return (

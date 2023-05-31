@@ -1,5 +1,6 @@
 import { getAllIssues } from "../API/issues.api";
 import { IssueCard } from "../components/IssueCard"
+import { FilterForm } from "./FilterForm";
 import React, { useEffect, useState } from "react";
 
 
@@ -7,24 +8,24 @@ export function IssuesList() {
   const estatInicial = [];
   const [issues, setIssues] = useState(estatInicial);
 
-  useEffect(() => {
+
+
+  /*useEffect(() => {
     async function loadIssues() {
       const res = await getAllIssues();
       console.log(res.data);
       setIssues(res.data);
     }
     loadIssues();
-  }, []);
+  }, []);*/
+  const handleSearch = (filteredIssues) => {
+    setIssues(filteredIssues.data);
+  };
 
-  if (issues === estatInicial) {
-    return (
-      <div className="no-issue-msg">
-        <p>No issues yet</p>
-        <i className='bx bx-happy-beaming'></i>
-      </div>
-    )
-  } else return (
+  return (
+
     <div className="issues-list-container">
+      <FilterForm onSearch={handleSearch} />
       <table>
         <tbody>
           <tr>

@@ -11,3 +11,7 @@ export const getAllIssues = () => {
 export const getAllUsers = () => {
   return issuesApi.get('/users');
 }
+
+export function getIssuesFiltered(status, priority, assignedTo, unassigned, createdBy, searchword, orderBy) {
+  return issuesApi.get(`/issues?status=${status}&priority=${priority}&assigned_to=${assignedTo}&unassigned=${unassigned}&created_by=${createdBy}&q=${searchword}&order_by=${orderBy}`);
+}
