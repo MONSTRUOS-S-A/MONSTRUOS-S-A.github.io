@@ -15,9 +15,7 @@ const WelcomeScreen = () => {
           <h1 className="welcome-title">Welcome!</h1>
           <p className="welcome-phrase">A lot of issues are waiting for you!</p>
           <div className="wrap-content">
-            <p>You are signed in as senyor pitu</p>
-            <a className="google-login-btn" href="logout/">Log out</a>
-            <p>Login with Google</p>
+            <p>Select your user</p>
             <Link className="google-login-btn" to = "/main">
 
             </Link>
