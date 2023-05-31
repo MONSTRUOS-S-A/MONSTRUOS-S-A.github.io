@@ -39,7 +39,7 @@ export function IssuesList() {
           </tr>
           {
             issues.map((issue) => (
-              <IssueCard key={issue.id} issue={issue} />
+              <IssueCard key={issue.issue_id} issue={issue} />
             ))
           }
         </tbody>
