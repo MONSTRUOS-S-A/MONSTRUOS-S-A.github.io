@@ -25,7 +25,7 @@ export function IssuesList() {
       </div>
     )
   } else return (
-    <div>
+    <div className="issues-list-container">
       <table>
         <tbody>
           <tr>

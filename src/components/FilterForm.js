@@ -1,4 +1,4 @@
-export function FilterForm(users) {
+export function FilterForm() {
   return (
     <form method="POST">
       <div className="inline-form"><small>Contains word</small></div>
