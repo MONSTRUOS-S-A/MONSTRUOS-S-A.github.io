@@ -54,3 +54,17 @@ export function getIssuesFiltered(status, priority, assignedTo, unassigned, crea
   }
   return issuesApi.get(apiUrl);
 }
+
+export function addIssue(issueData) {
+  const headers = {
+    Authorization: 'Bearer 123456789',
+  };
+
+  const requestBody = {
+    subject: issueData.subject,
+    description: issueData.description,
+    status: issueData.status,
+  };
+
+  return issuesApi.post('/issues', requestBody, { headers });
+}
