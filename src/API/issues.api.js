@@ -76,3 +76,15 @@ export function bulkInsertIssues(data) {
     },
   });
 }
+
+export function uploadAttachment(issueId, attachmentFile) {
+  const formData = new FormData();
+  formData.append('attachment', attachmentFile);
+
+  const headers = {
+    Authorization: 'Bearer 123456789',
+    'Content-Type': 'multipart/form-data',
+  };
+
+  return issuesApi.post(`issues/${issueId}/attachments`, formData, { headers });
+}

@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from '../context/AuthContext';
 import { IssueViewTittle } from '../components/IssueViewTittle';
 import IssueViewDescription from '../components/IssueViewDescription';
+import { UploadAttachmentForm } from '../components/UploadAttachmentForm';
 
 const IssueScreen = () => {
 
@@ -91,11 +92,7 @@ const IssueScreen = () => {
             <div className="attachments-field">
               <p>{attachments.length} attachments</p>
 
-              <form className="attachment-form-wrap" method="POST" encType="multipart/form-data">
-                {/* Coloca aquí el token CSRF si es necesario */}
-
-                <button className="btn-upload" type="submit">Upload</button>
-              </form>
+              <UploadAttachmentForm issueId={id} />
             </div>
 
             <div className="attachments-wrap">
