@@ -14,12 +14,13 @@ import IssueViewDescription from '../components/IssueViewDescription';
 import { UploadAttachmentForm } from '../components/UploadAttachmentForm';
 
 const IssueScreen = () => {
+const {
+  authUser,
+  setAuthUser,
+  isLoggedIn,
+  setIsLoggedIn } = useAuth()
 
-  const {
-    authUser,
-    setAuthUser,
-    isLoggedIn,
-    setIsLoggedIn } = useAuth()
+  if (!isLoggedIn)   window.location.href = "/login";
 
   const { id } = useParams();
   const [issue, setIssue] = useState(null);

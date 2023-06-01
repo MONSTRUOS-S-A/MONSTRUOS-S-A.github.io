@@ -12,6 +12,8 @@ const Header = () => {
     isLoggedIn,
     setIsLoggedIn } = useAuth()
 
+    if (!isLoggedIn)   window.location.href = "/login";
+
 
   return (
     
