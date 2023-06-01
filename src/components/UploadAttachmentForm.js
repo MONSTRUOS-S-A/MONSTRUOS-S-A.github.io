@@ -12,11 +12,9 @@ export function UploadAttachmentForm({ issueId }) {
     event.preventDefault();
     if (selectedFile) {
       try {
-        const formData = new FormData();
-        formData.append('attachment', selectedFile);
 
         // Realizar llamada a la API para subir el archivo
-        await uploadAttachment(issueId, formData);
+        await uploadAttachment(issueId, selectedFile);
 
         // Reiniciar el estado del archivo seleccionado
         setSelectedFile(null);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const issuesApi = axios.create({
-  baseURL: 'http://issuetrackerwazowski-env.eba-4em2umit.eu-west-3.elasticbeanstalk.com/api/v1/'
+  baseURL: 'http://localhost:8000/api/v1/'
 })
 
 export const getAllIssues = () => {
@@ -79,7 +79,8 @@ export function bulkInsertIssues(data) {
 
 export function uploadAttachment(issueId, attachmentFile) {
   const formData = new FormData();
-  formData.append('attachment', attachmentFile);
+  formData.append('file', attachmentFile);
+  console.log(typeof attachmentFile)
 
   const headers = {
     Authorization: 'Bearer 123456789',
