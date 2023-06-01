@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const issuesApi = axios.create({
-  baseURL: 'http://localhost:8000/api/v1/'
+  baseURL: 'http://issuetrackerwazowski-env.eba-4em2umit.eu-west-3.elasticbeanstalk.com/api/v1'
 })
 
 export const getAllIssues = () => {
