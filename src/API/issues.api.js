@@ -12,19 +12,19 @@ export const getAllUsers = () => {
   return issuesApi.get('/users');
 }
 
-export function getIssueDetailed(issue_id){
+export function getIssueDetailed(issue_id) {
   return issuesApi.get(`/issues/${issue_id}`)
 }
 
-export function getAttachments(issue_id){
+export function getAttachments(issue_id) {
   return issuesApi.get(`issues/${issue_id}/attachments`)
 }
 
-export function getActivities(issue_id){
+export function getActivities(issue_id) {
   return issuesApi.get(`issues/${issue_id}/activities`)
 }
 
-export function getComments(issue_id){
+export function getComments(issue_id) {
   return issuesApi.get(`issues/${issue_id}/comments`)
 }
 
@@ -52,6 +52,5 @@ export function getIssuesFiltered(status, priority, assignedTo, unassigned, crea
   if (orderBy) {
     apiUrl += `order_by=${orderBy}`;
   }
-
   return issuesApi.get(apiUrl);
 }
