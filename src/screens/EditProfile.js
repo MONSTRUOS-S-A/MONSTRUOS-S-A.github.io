@@ -118,8 +118,8 @@ const EditProfile = () => {
                         ></textarea>
                         {/* Buttons */}
                         <div className="edit-btn-section">
-                            <a className="btn-go-back" href="/user_page/">
-                            <i className="bx bx-arrow-back" onClick={handleGoProfile}></i> Go back
+                            <a className="btn-go-back" onClick={handleGoProfile}>
+                            <i className="bx bx-arrow-back"></i> Go back
                             </a>
                             <button type="submit" className="btn-go-back" style={{ marginLeft: '10px', cursor: 'pointer' }}>
                             <i className="bx bxs-save"></i>Save changes
