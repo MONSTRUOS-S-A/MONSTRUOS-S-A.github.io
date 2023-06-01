@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 export function IssueCard({ issue }) {
   return (
@@ -41,12 +42,12 @@ export function IssueCard({ issue }) {
             <div className={`circle-tag ${issue.priority === 'Low' ? 'prio-low' : issue.priority === 'Normal' ? 'prio-normal' : 'prio-high'}`}></div>
           </td>
           <td>
-            <a className="link-issue" href="{% url 'issue_detail' issue.id %}">
-              <p className="subject-id">#{issue.id}</p>
+            <Link className="link-issue" to={`/issue/${issue.issue_id}`}>
+              <p className="subject-id">#{issue.issue_id}</p>
               <p className="subject-text">{issue.subject}</p>
               {issue.is_blocked && <i className="bx bx-lock-alt icon-row"></i>}
               {issue.deadline != null && <i className="bx bx-time-five icon-row" style={{ color: 'grey' }}></i>}
-            </a>
+            </Link>
           </td>
           <td>
             <p className="status">{issue.status}</p>
