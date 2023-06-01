@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faRocket} from '@fortawesome/free-solid-svg-icons'
 import '../styles/welcome.css';
@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 const UserPage = () => {
 
     const {id} = useParams();
-
+    const navigate = useNavigate();
     const estatInicial = [];
     const [content, setContent] = useState(estatInicial);
   
@@ -24,6 +24,18 @@ const UserPage = () => {
       }
       loadIssues();
     }, []);
+    
+    const handleGoBack = () => {
+        navigate('/main');
+    };
+
+    const handleGoTimeline= () => {
+        navigate(`/user_detail/${id}`);
+    };
+
+    const handleGoEdit= () => {
+        navigate(`/edit_profile/${id}`);
+    };
 
     return (
         
@@ -39,7 +51,7 @@ const UserPage = () => {
                     <img
                     id="profile picture"
                     className="profile-img-edit"
-                    src="https://petercobo.com/wp-content/uploads/random-10.jpg"
+                    src={content.profile_picture}
                     alt=""
                     />
                 </div>
@@ -76,7 +88,7 @@ const UserPage = () => {
                 <input
                     className="custom-input"
                     type="text"
-                    value={content.last_name}
+                    value={content.email}
                     disabled
                 />
 
@@ -99,15 +111,15 @@ const UserPage = () => {
                     type="submit"
                     className="btn-go-back"
                     style={{ cursor: 'pointer' }}
-                    onClick="Hola"
+                    onClick={handleGoBack}
                     >
                     <i className="bx bx-arrow-back"></i>
                     Go back
                     </button>
-                    <a className="btn-go-back" href="/user_timeline">
+                    <a className="btn-go-back" onClick={handleGoTimeline}>
                     View timeline
                     </a>
-                    <a className="btn-go-back" href="/user_settings/">
+                    <a className="btn-go-back" onClick={handleGoEdit}>
                         <i className="bx bxs-edit"></i> Edit profile
                     </a>
                 </div>

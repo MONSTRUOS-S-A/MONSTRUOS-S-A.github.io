@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faRocket} from '@fortawesome/free-solid-svg-icons'
 import '../styles/common.css';
@@ -7,11 +7,22 @@ import '../styles/settings.css';
 import Header from '../components/Header';
 import { postEditProfile } from '../API/issues.api';
 import { useParams } from 'react-router-dom';
+import { getUser } from '../API/issues.api';
 
 const EditProfile = () => {
 
     const {id} = useParams();
     const [inputs, setInputs] = useState({});
+    const [content, setContent] = useState({});
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        async function loadIssues() {
+          const res = await getUser(id);
+          setContent(res.data);
+        }
+        loadIssues();
+      }, []);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -19,8 +30,16 @@ const EditProfile = () => {
         setInputs(values => ({...values, [name]: value}))
     }
 
+    const handleGoProfile= () => {
+        navigate(`/user_page/${id}`);
+    };
+
     const handleSubmit = (event) => {
-        postEditProfile(id, inputs);
+        const data = {
+            new_bio: inputs.new_bio,
+            new_profile_picture: inputs.new_profile_picture,
+        };
+        postEditProfile(id, data);
     }
 
     return (
@@ -38,7 +57,7 @@ const EditProfile = () => {
                     <img
                         id="profile picture"
                         className="profile-img-edit"
-                        src="https://petercobo.com/wp-content/uploads/random-10.jpg"
+                        src={content.profile_picture}
                         alt="Profile picture"
                     />
 
@@ -61,14 +80,14 @@ const EditProfile = () => {
                 <section className="right-edit-content">
                     {/* Username */}
                     <h4>Username </h4>
-                    <input className="custom-input" type="text" value="Epsilon085" disabled />
+                    <input className="custom-input" type="text" value={content.username} disabled />
 
                     {/* First & second name (might not have any value) */}
                     <h4>First Name </h4>
                     <input
                     className="custom-input"
                     type="text"
-                    value="Daniel"
+                    value={content.first_name}
                     disabled
                     />
 
@@ -77,13 +96,13 @@ const EditProfile = () => {
                     <input
                         className="custom-input"
                         type="text"
-                        value="Marin Serra"
+                        value={content.last_name}
                         disabled
                     />
 
                     {/* email */}
                     <h4>Email </h4>
-                    <input className="custom-input" type="text" value="daniel@gmail.com" disabled />
+                    <input className="custom-input" type="text" value={content.email} disabled />
 
                     {/* Bio */}
                     <h4>Bio </h4>
@@ -100,7 +119,7 @@ const EditProfile = () => {
                         {/* Buttons */}
                         <div className="edit-btn-section">
                             <a className="btn-go-back" href="/user_page/">
-                            <i className="bx bx-arrow-back"></i> Go back
+                            <i className="bx bx-arrow-back" onClick={handleGoProfile}></i> Go back
                             </a>
                             <button type="submit" className="btn-go-back" style={{ marginLeft: '10px', cursor: 'pointer' }}>
                             <i className="bx bxs-save"></i>Save changes
