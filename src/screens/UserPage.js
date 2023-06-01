@@ -8,8 +8,15 @@ import '../styles/settings.css';
 import Header from '../components/Header';
 import { getUser } from '../API/issues.api';
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
 
 const UserPage = () => {
+    const {
+        authUser,
+        setAuthUser,
+        isLoggedIn,
+        setIsLoggedIn } = useAuth()
 
     const {id} = useParams();
     const navigate = useNavigate();
@@ -17,12 +24,19 @@ const UserPage = () => {
     const [content, setContent] = useState(estatInicial);
   
     useEffect(() => {
-      async function loadIssues() {
+      async function loadUser() {
         const res = await getUser(id);
         console.log(res.data);
         setContent(res.data);
+        if (res.data.id === authUser.id) {
+            let AuxAuthUser = authUser
+            AuxAuthUser.profile_picture = res.data.profile_picture
+            setAuthUser(AuxAuthUser)
+        }
+
+
       }
-      loadIssues();
+      loadUser();
     }, []);
     
     const handleGoBack = () => {
@@ -42,7 +56,7 @@ const UserPage = () => {
     <div>
         <Header />
         <main className="edit-main-wrap" style={{ marginTop: '50px' }}>
-            <p className="edit-info-text">This is what we know about you!</p>
+            {(content.id === authUser.id) && (<p className="edit-info-text">This is what we know about you!</p>)}
             <div className="wrap-edit-content">
             <div className="edit-wrapview">
                 <section className="left-edit-content">
@@ -119,9 +133,9 @@ const UserPage = () => {
                     <a className="btn-go-back" onClick={handleGoTimeline}>
                     View timeline
                     </a>
-                    <a className="btn-go-back" onClick={handleGoEdit}>
+                    {(content.id === authUser.id) && (<a className="btn-go-back" onClick={handleGoEdit}>
                         <i className="bx bxs-edit"></i> Edit profile
-                    </a>
+                    </a>)}
                 </div>
                 </section>
             </div>
