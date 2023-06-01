@@ -17,12 +17,7 @@ const MainScreen = () => {
       </section>
 
       <div className="main-wrap">
-        <section className="filter-section">
-          <FilterForm />
-        </section>
-        <section className="main-table">
-          <IssuesList />
-        </section>
+        <IssuesList />
       </div>
     </main>
   </div>

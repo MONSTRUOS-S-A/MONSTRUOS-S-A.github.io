@@ -1,5 +1,6 @@
 import React from "react";
-import { getAllUsers, getIssuesFiltered } from "../API/issues.api";
+import { getIssuesFiltered } from "../API/issues.api";
+import { getAllUsers } from "../API/users.api"
 import { useState, useEffect } from "react";
 
 export function FilterForm({ onSearch }) {
@@ -87,8 +88,8 @@ export function FilterForm({ onSearch }) {
         <label>
           <input
             type="checkbox"
-            name="status-new"
-            checked={inputs["status-new"] || false}
+            name="status-New"
+            checked={inputs["status-New"] || false}
             onChange={handleChange}
           />
           New
@@ -135,8 +136,8 @@ export function FilterForm({ onSearch }) {
         <label>
           <input
             type="checkbox"
-            name="priority-low"
-            checked={inputs["priority-low"] || false}
+            name="priority-Low"
+            checked={inputs["priority-Low"] || false}
             onChange={handleChange}
           />
           Low
@@ -144,8 +145,8 @@ export function FilterForm({ onSearch }) {
         <label>
           <input
             type="checkbox"
-            name="priority-normal"
-            checked={inputs["priority-normal"] || false}
+            name="priority-Normal"
+            checked={inputs["priority-Normal"] || false}
             onChange={handleChange}
           />
           Normal
@@ -153,8 +154,8 @@ export function FilterForm({ onSearch }) {
         <label>
           <input
             type="checkbox"
-            name="priority-high"
-            checked={inputs["priority-high"] || false}
+            name="priority-High"
+            checked={inputs["priority-High"] || false}
             onChange={handleChange}
           />
           High
