@@ -55,4 +55,3 @@ export function getIssuesFiltered(status, priority, assignedTo, unassigned, crea
 
   return issuesApi.get(apiUrl);
 }
-

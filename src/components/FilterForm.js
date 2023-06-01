@@ -1,8 +1,8 @@
 import React from "react";
-import { getAllUsers, getIssuesFiltered } from "../API/issues.api";
+import { getAllUsers } from "../API/users.api";
 import { useState, useEffect } from "react";
 
-export function FilterForm({ onSearch }) {
+export function FilterForm() {
   const [inputs, setInputs] = useState({});
 
   const handleChange = (event) => {
@@ -15,28 +15,16 @@ export function FilterForm({ onSearch }) {
     }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const status = getCheckedValues("status");
-    const priority = getCheckedValues("priority");
-    const assignedTo = getCheckedValues("assignedTo");
-    const unassigned = inputs.unassigned ? "unassigned" : "";
-    const createdBy = getCheckedValues("createdBy");
-    const searchword = inputs.searchword;
-    const orderBy = inputs.orderBy;
-
     console.log("Formulario enviado:");
     console.log("Contains word:", inputs.searchword);
     console.log("Orders by:", inputs.orderBy);
-    console.log("Status:", getCheckedValues("status")); // Obtener valores agrupados
+    console.log("Status:", getCheckedValues("status")); // Obtener valoress agrupados
     console.log("Priority:", getCheckedValues("priority")); // Obtener valores agrupados
     console.log("Assigned to:", getCheckedValues("assignedTo"));
     console.log("Created by:", getCheckedValues("createdBy"));
     console.log("Unassigned:", getCheckedValues("unassigned"));
-    const issues = await getIssuesFiltered(status, priority, assignedTo, unassigned, createdBy, searchword, orderBy);
-    console.log(issues);
-    onSearch(issues);
-
   };
 
   const estatInicial = [];
@@ -54,8 +42,7 @@ export function FilterForm({ onSearch }) {
   const getCheckedValues = (section) => {
     return Object.entries(inputs)
       .filter(([name, value]) => name.startsWith(section) && value)
-      .map(([name, value]) => name.replace(`${section}-`, ""))
-      .join(",");
+      .map(([name, value]) => name.replace(`${section}-`, ""));
   };
 
   return (
