@@ -161,7 +161,7 @@ const IssueScreen = () => {
               <div className="attachments-wrap">
                 {attachments.map((attachment) => (
                   <div className="attachment" key={attachment.pk}>
-                    <Link href={attachment.attachment_file} className="attachment-name" target="_blank" download>
+                    <Link to={attachment.attachment_file} className="attachment-name" target="_blank" download>
                       <i className="bx bx-paperclip bx-rotate-90"></i>
                       {attachment.attachment_name}
                     </Link>
@@ -321,22 +321,22 @@ const IssueScreen = () => {
         <hr />
 
         {/**PARTE DE ASIGNED  */}
-        {
-                  /*
+       
         <section className="asigned-to-section">
           <p>Watchers</p>
           <div className="asigned-to-section-wrap">
-            {issue.issue_watchers.map(watcher => (
+            {/*
+            issue.issue_watchers.map(watcher => (
               <div className="asigned-to-content" key={watcher.id}>
                 <Link to={`/user_page/${watcher.id}/`}>
-                  <img className="profile-img" src={"https://s1.eestatic.com/2022/04/07/actualidad/663194026_223351911_1024x576.jpg"} alt="" />
+                  <img className="profile-img" src={watcher.profile_picture} alt="" />
                 </Link>
 
                
                   
                
                 <small>{watcher.auth_user.first_name} {watcher.auth_user.last_name}</small>
-                {(issue.blocked === false || issue.issue_blocking_user === actual_user.auth_user) && issue.blocked === true && (
+                {(issue.is_blocked === false || issue.issue_blocking_user.id === authUser.id) && issue.is_blocked === true && (
                   <form method="post" style={{ marginLeft: "auto" }}>
                     <input type="hidden" name="new_watcher" value={`-${watcher.auth_user.pk}`} />
                     <button type="submit" className="btn-setting" style={{ marginLeft: "auto" }}>
@@ -346,14 +346,14 @@ const IssueScreen = () => {
                 )}
               </div>
             ))}
-            {issue.watchers.length === 0 && (
+            {issue.issue_watchers.length === 0 && (
               <div className="asigned-to-content">
-                <img className="profile-img" src="{% static 'myapp/img/nouser.png' %}" alt="" />
+                <img className="profile-img" src={}alt="" />
                 <small style={{ fontStyle: "italic" }}>Not Assigned</small>
               </div>
             )}
           </div>
-            {(issue.blocked === false || issue.userblocker.auth_user === actual_user.auth_user) && issue.blocked === true && (
+            {/*(issue.blocked === false || issue.userblocker.auth_user === actual_user.auth_user) && issue.blocked === true && (
               <div className="asignation-buttons-wrap">
                 <form method="post">
                   <select name="new_watcher" id="new_watcher" onChange={handleWatcherChange} className="btn-asignation">
@@ -372,12 +372,13 @@ const IssueScreen = () => {
                     {user_is_watcher ? 'Unwatch' : 'Watch'}
                   </button>
                 </form>
+                */}
               </div>
-            )}
+              
+                    
                
           </section>
-          */
-        }
+    
 
 
       </main>
