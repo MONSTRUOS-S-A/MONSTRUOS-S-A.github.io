@@ -15,8 +15,14 @@ const MainScreen = () => {
         <Link className="new-issue-btn" to="/new_issue">+ New issue</Link>
         <Link className="btn-bulk" to="/bulk_insert"><i className='bx bx-list-plus'></i> Bulk insert</Link>
       </section>
+
       <div className="main-wrap">
-        <IssuesList />
+        <section className="filter-section">
+          <FilterForm />
+        </section>
+        <section className="main-table">
+          <IssuesList />
+        </section>
       </div>
     </main>
   </div>

@@ -28,9 +28,6 @@ const WelcomeScreen = () => {
           <h1 className="welcome-title">Welcome!</h1>
           <p className="welcome-phrase">A lot of issues are waiting for you!</p>
           <div className="wrap-content">
-
-            <p>Select your user</p>
-
             <select id="login_user" name="login_user">
               {
               users.map((user) => (
@@ -41,7 +38,6 @@ const WelcomeScreen = () => {
             </select>
             <a className="google-login-btn" href="logout/">Log out</a>
             <p>Login with Google</p>
-
             <Link className="google-login-btn" to = "/main">
                 Log In
             </Link>

@@ -1,14 +1,11 @@
 import { getAllIssues } from "../API/issues.api";
 import { IssueCard } from "../components/IssueCard"
-import { FilterForm } from "./FilterForm";
 import React, { useEffect, useState } from "react";
 
 
 export function IssuesList() {
   const estatInicial = [];
   const [issues, setIssues] = useState(estatInicial);
-
-
 
   useEffect(() => {
     async function loadIssues() {
@@ -19,37 +16,33 @@ export function IssuesList() {
     loadIssues();
   }, []);
 
-  const handleSearch = (filteredIssues) => {
-    setIssues(filteredIssues.data);
-  };
-
-  return (
+  if (issues === estatInicial) {
+    return (
+      <div className="no-issue-msg">
+        <p>No issues yet</p>
+        <i className='bx bx-happy-beaming'></i>
+      </div>
+    )
+  } else return (
     <div className="issues-list-container">
-      <section className="filter-section">
-        <FilterForm onSearch={handleSearch} />
-      </section>
-      <section className="main-table">
-
-        <table>
-          <tbody>
-            <tr>
-              <th className="circle-tag-head">Type</th>
-              <th className="circle-tag-head">Severity</th>
-              <th className="circle-tag-head">Priority</th>
-              <th className="standard-head">Subject</th>
-              <th className="standard-head">Status</th>
-              <th className="standard-head">Created</th>
-              <th className="standard-head">Assigned</th>
-            </tr>
-            {
-              issues.map((issue) => (
-                <IssueCard key={issue.issue_id} issue={issue} />
-              ))
-            }
-          </tbody>
-        </table>
-      </section>
+      <table>
+        <tbody>
+          <tr>
+            <th className="circle-tag-head">Type</th>
+            <th className="circle-tag-head">Severity</th>
+            <th className="circle-tag-head">Priority</th>
+            <th className="standard-head">Subject</th>
+            <th className="standard-head">Status</th>
+            <th className="standard-head">Created</th>
+            <th className="standard-head">Assigned</th>
+          </tr>
+          {
+            issues.map((issue) => (
+              <IssueCard key={issue.issue_id} issue={issue} />
+            ))
+          }
+        </tbody>
+      </table>
     </div >
-
   );
 }
