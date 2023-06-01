@@ -22,7 +22,7 @@ const Header = () => {
         <h2 className="navbar-title"><FontAwesomeIcon icon={faRocket} size = "sm" style={{color: "#ffffff",}} /> Fiber Issues</h2>
       </Link>
       <div className="navbar-content">
-        <a href=''>
+        <a href={`/user_detail/${authUser.id}`}>
           <img className="profile-icon" src={authUser.profile_picture} alt="Profile Icon" />
         </a>
         <p>{authUser.first_name} {authUser.last_name}</p>
