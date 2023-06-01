@@ -39,49 +39,49 @@ const UserTimelines = () => {
                     <article className="activitie">
                     <div className="activity-status">
                         <p className="activitie">{activity.issue_id}</p>
-                        <p className="activity-tag">{activity.get_action_display}</p>
+                        <p className="activity-tag">{activity.action}</p>
                         {activity.action === 'MOD' && (
                         <>
-                            <p>STATUS: {activity.at5} == {activity.at6}</p>
-                            <p>SUBJECT: {activity.at1} == {activity.at2}</p>
-                            <p>DESCRIPTION: {activity.at3} == {activity.at4}</p>
+                            <p className="activitie">STATUS: {activity.at5} == {activity.at6}</p>
+                            <p className="activitie">SUBJECT: {activity.at1} == {activity.at2}</p>
+                            <p className="activitie">DESCRIPTION: {activity.at3} == {activity.at4}</p>
                         </>
                         )}
 
                         {activity.action === 'PRY' && (
-                        <p className="first-field">{activity.at1} == {activity.at2}</p>
+                        <p className="activitie">{activity.at1} == {activity.at2}</p>
                         )}
 
                         {activity.action === 'SEV' && (
-                        <p className="first-field">{activity.at1} == {activity.at2}</p>
+                        <p className="activitie">{activity.at1} == {activity.at2}</p>
                         )}
 
                         {activity.action === 'TYP' && (
-                        <p className="first-field">{activity.at1} == {activity.at2}</p>
+                        <p className="activitie">{activity.at1} == {activity.at2}</p>
                         )}
 
                         {activity.action === 'TAG' && (
-                        <p className="first-field">{activity.at1}</p>
+                        <p className="activitie">{activity.at1}</p>
                         )}
 
                         {activity.action === 'AAT' && (
-                        <p className="first-field">{activity.at1}</p>
+                        <p className="activitie">{activity.at1}</p>
                         )}
 
                         {activity.action === 'DAT' && (
-                        <p className="first-field">{activity.at1}</p>
+                        <p className="activitie">{activity.at1}</p>
                         )}
 
                         {activity.action === 'ASS' && (
-                        <p className="first-field">{activity.at1} == {activity.at2}</p>
+                        <p className="activitie">{activity.at1} == {activity.at2}</p>
                         )}
 
                         {activity.action === 'BCK' && (
-                        <p className="first-field">{activity.at1} == {activity.at2}</p>
+                        <p className="activitie">{activity.at1} == {activity.at2}</p>
                         )}
 
                         {activity.action === 'DUE' && (
-                        <p className="first-field">{activity.at7} == {activity.at8}</p>
+                        <p className="activitie">{activity.at7} == {activity.at8}</p>
                         )}
                     </div>
                     </article>
@@ -89,8 +89,8 @@ const UserTimelines = () => {
                 ))}
                 <h1 style={{ marginTop: '50px' }}>Watching</h1>
                 {content2.map((watching, index) => (
-                <div className="activity" key={index}>
-                    <p>{watching.subject}</p>
+                <div className="activitie" key={index}>
+                    <p className="activitie">{watching.subject}</p>
                 </div>
                 ))}
             </div>
