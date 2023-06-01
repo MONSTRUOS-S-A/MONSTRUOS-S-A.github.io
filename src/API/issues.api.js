@@ -40,9 +40,6 @@ export function getIssuesFiltered(status, priority, assignedTo, unassigned, crea
   if (assignedTo) {
     apiUrl += `assigned_to=${assignedTo}&`;
   }
-  if (unassigned) {
-    apiUrl += `unassigned=${unassigned}&`;
-  }
   if (createdBy) {
     apiUrl += `created_by=${createdBy}&`;
   }
@@ -50,7 +47,10 @@ export function getIssuesFiltered(status, priority, assignedTo, unassigned, crea
     apiUrl += `q=${searchword}&`;
   }
   if (orderBy) {
-    apiUrl += `order_by=${orderBy}`;
+    apiUrl += `order_by=${orderBy}&`;
+  }
+  if (unassigned) {
+    apiUrl += `unassigned=True&`;
   }
   return issuesApi.get(apiUrl);
 }
