@@ -28,7 +28,7 @@ export function FilterForm({ onSearch }) {
     console.log("Formulario enviado:");
     console.log("Contains word:", inputs.searchword);
     console.log("Orders by:", inputs.orderBy);
-    console.log("Status:", getCheckedValues("status")); // Obtener valores agrupados
+    console.log("Status:", getCheckedValues("status")); // Obtener valoress agrupados
     console.log("Priority:", getCheckedValues("priority")); // Obtener valores agrupados
     console.log("Assigned to:", getCheckedValues("assignedTo"));
     console.log("Created by:", getCheckedValues("createdBy"));
