@@ -8,8 +8,15 @@ import { getAttachments } from '../API/issues.api';
 import { getActivities } from '../API/issues.api';
 import { getComments } from '../API/issues.api';
 import React, { useEffect, useState } from "react";
+import { useAuth } from '../context/AuthContext';
 
 const IssueScreen = () => {
+
+  const {
+    authUser,
+    setAuthUser,
+    isLoggedIn,
+    setIsLoggedIn } = useAuth()
 
   const {id} = useParams();
   const [issue, setIssue] = useState(null);
@@ -86,17 +93,17 @@ const IssueScreen = () => {
               )}
             </div>
             
-            {/*(issue.is_blocked === false ||
-              (issue.userblocker.auth_user === actual_user.auth_user &&
+            {(issue.is_blocked === false ||
+              (issue.issue_blocking_user.id === authUser.id &&
                 issue.is_blocked === true)) && (
-              <a
+              <Link
                 id="edit-issue"
                 className="btn-setting"
-                href={`/${issue.id}/edit`}
+                href={`/${issue.issue_id}/edit`}
               >
-                <i className="bx bx-edit"></i>
-              </a>
-                )*/}
+                Edit<i className="bx bx-edit"></i>
+              </Link>
+                )}
           </section>
           <h5>ISSUE</h5>
           {issue.is_blocked === true && (
@@ -247,7 +254,7 @@ const IssueScreen = () => {
           <div className="comment-field">
             <small><i className="bx bx-chat"></i> Add your comment</small>
             <div className="comment-form-wrap">
-              <img className="profile-img" src={"https://s1.eestatic.com/2022/04/07/actualidad/663194026_223351911_1024x576.jpg"} alt="" />
+              <img className="profile-img" src={authUser.profile_picture} alt="" />
               <form className="comment-form" method="post">
                 {
                   /**
@@ -255,7 +262,7 @@ const IssueScreen = () => {
                 
                    */
                 }
-                <input type="text" name="content" placeholder='Say something!' />
+                <input className = "custom-input" type="text" name="content" placeholder='Say something!' />
                 
                 {/*commentForm.content.errors && <p className="text-danger">{commentForm.content.errors}</p>*/}
                 <button type="submit" className="btn-post-comment"><i className="bx bx-send"></i> Post</button>

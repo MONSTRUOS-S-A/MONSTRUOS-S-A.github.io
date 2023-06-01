@@ -14,6 +14,7 @@ const Header = () => {
 
 
   return (
+    
     <div className="navbar">
       <Link className="link-main" to="/main">
         <h2 className="navbar-title"><FontAwesomeIcon icon={faRocket} size = "sm" style={{color: "#ffffff",}} /> Fiber Issues</h2>
