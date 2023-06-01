@@ -25,5 +25,12 @@ export const getUserDetail = (id) => {
 }
 
 export const postEditProfile = (id, data) => {
-  return issuesApi.post(`/users/${id}`, data)
+  const requestData = {}
+  if(data.new_bio) {
+    requestData.new_bio = data.new_bio;
+  }
+  if(data.new_profile_picture) {
+    requestData.new_profile_picture = data.new_profile_picture;
+  }
+  return issuesApi.put(`/users/${id}`, requestData)
 }

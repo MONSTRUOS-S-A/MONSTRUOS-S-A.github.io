@@ -11,6 +11,17 @@ import { useParams } from 'react-router-dom';
 const EditProfile = () => {
 
     const {id} = useParams();
+    const [inputs, setInputs] = useState({});
+
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setInputs(values => ({...values, [name]: value}))
+    }
+
+    const handleSubmit = (event) => {
+        postEditProfile(id, inputs);
+    }
 
     return (
         <div>
@@ -76,24 +87,25 @@ const EditProfile = () => {
 
                     {/* Bio */}
                     <h4>Bio </h4>
-                    <form method="post">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
-                    <textarea
-                        className="custom-input"
-                        name="new_bio"
-                        maxLength="200"
-                        defaultValue="Bombardeen marruecos"
-                        required
-                    ></textarea>
-                    {/* Buttons */}
-                    <div className="edit-btn-section">
-                        <a className="btn-go-back" href="/user_page/">
-                        <i className="bx bx-arrow-back"></i> Go back
-                        </a>
-                        <button type="submit" className="btn-go-back" style={{ marginLeft: '10px', cursor: 'pointer' }}>
-                        <i className="bx bxs-save"></i>Save changes
-                        </button>
-                    </div>
+                    <form onSubmit={handleSubmit} method='put'>
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
+                        <textarea
+                            className="custom-input"
+                            name="new_bio"
+                            maxLength="200"
+                            value={inputs.new_bio || ""}
+                            required
+                            onChange={handleChange}
+                        ></textarea>
+                        {/* Buttons */}
+                        <div className="edit-btn-section">
+                            <a className="btn-go-back" href="/user_page/">
+                            <i className="bx bx-arrow-back"></i> Go back
+                            </a>
+                            <button type="submit" className="btn-go-back" style={{ marginLeft: '10px', cursor: 'pointer' }}>
+                            <i className="bx bxs-save"></i>Save changes
+                            </button>
+                        </div>
                     </form>
                 </section>
                 </div>
