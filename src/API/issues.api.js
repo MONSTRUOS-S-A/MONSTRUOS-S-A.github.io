@@ -77,9 +77,9 @@ export function getIssuesFiltered(status, priority, assignedTo, unassigned, crea
   return issuesApi.get(apiUrl);
 }
 
-export function addIssue(issueData) {
+export function addIssue(issueData, token) {
   const headers = {
-    Authorization: 'Bearer 123456789',
+    Authorization: `Bearer ${token}`,
   };
 
   const requestBody = {
@@ -91,21 +91,21 @@ export function addIssue(issueData) {
   return issuesApi.post('/issues', requestBody, { headers });
 }
 
-export function bulkInsertIssues(data) {
+export function bulkInsertIssues(data, token) {
   return issuesApi.post('/issues/bulkinsert', data, {
     headers: {
-      Authorization: 'Bearer 123456789',
+      Authorization: `Bearer ${token}`,
     },
   });
 }
 
-export function uploadAttachment(issueId, attachmentFile) {
+export function uploadAttachment(issueId, attachmentFile, token) {
   const formData = new FormData();
   formData.append('file', attachmentFile);
   console.log(typeof attachmentFile)
 
   const headers = {
-    Authorization: 'Bearer 123456789',
+    Authorization: `Bearer ${token}`,
     'Content-Type': 'multipart/form-data',
   };
 

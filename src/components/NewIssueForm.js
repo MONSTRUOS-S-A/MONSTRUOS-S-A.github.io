@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { addIssue } from '../API/issues.api';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
 
 export function NewIssueForm() {
+  const navigate = useNavigate()
+  const {
+    authUser,
+    setAuthUser,
+    isLoggedIn,
+    setIsLoggedIn } = useAuth()
   const [issueData, setIssueData] = useState({
     subject: '',
     description: '',
@@ -16,7 +25,7 @@ export function NewIssueForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    addIssue(issueData)
+    addIssue(issueData, authUser.api_token)
       .then((response) => {
         console.log('Respuesta de la API:', response.data);
         // Resetear los campos del formulario si es necesario
@@ -25,6 +34,7 @@ export function NewIssueForm() {
           description: '',
           status: 'New',
         });
+        navigate('/main')
       })
       .catch((error) => {
         console.error('Error al agregar el issue:', error);

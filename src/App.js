@@ -23,7 +23,8 @@ const App = () => {
           <Route path="/main" element={<MainScreen />} />
           <Route path="/new_issue" element={<NewIssue />} />
           <Route path="/bulk_insert" element={<BulkInsert />} />
-          <Route path="/main/issue/:id" element={<IssueScreen />} />          <Route path = "/user_page/:id" element = {<UserPage />} />
+          <Route path="/main/issue/:id" element={<IssueScreen />} />          
+          <Route path = "/user_page/:id" element = {<UserPage />} />
           <Route path = "/edit_issue" element = {<EditIssue />} />
           <Route path = "/edit_profile/:id" element = {<EditProfile/>} />
           <Route path = "/user_detail/:id" element = {<UserTimelines/>} />

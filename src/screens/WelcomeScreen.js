@@ -10,7 +10,6 @@ import { useAuth } from '../context/AuthContext';
 
 const WelcomeScreen = () => {
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
   const {
     authUser,
     setAuthUser,
@@ -20,8 +19,9 @@ const WelcomeScreen = () => {
   useEffect(() => {
     async function loadUsersAndTokens() {
       const res = await getAllUsersAndTokens();
-      console.log(res)
       setUsers(res.data);
+      const newUser = res.data.find((user) => user.id === 14);
+      setAuthUser(newUser);
     };
 
     loadUsersAndTokens();
@@ -39,7 +39,6 @@ const WelcomeScreen = () => {
 
     setAuthUser(newUser);
     // Redirect to the main screen or another screen
-    navigate('/main');
   };
 
   return (
@@ -58,11 +57,9 @@ const WelcomeScreen = () => {
                 </option>
               ))}
             </select>
-            <a className="google-login-btn" href="logout/">Log out</a>
-            <p>Login with Google</p>
-            <a className="google-login-btn" to = "/main">
+            <Link className="google-login-btn" to = "/main">
                 Log In
-            </a>
+            </Link>
           </div>
           <p className="footer-phrase">This app won't solve your issues, but maybe it will help you manage them</p>
         </section>

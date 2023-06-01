@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { uploadAttachment } from '../API/issues.api';
+import { useAuth } from '../context/AuthContext';
+
 
 export function UploadAttachmentForm({ issueId }) {
   const [selectedFile, setSelectedFile] = useState(null);
+  const {
+    authUser,
+    setAuthUser,
+    isLoggedIn,
+    setIsLoggedIn } = useAuth()
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -14,7 +21,7 @@ export function UploadAttachmentForm({ issueId }) {
       try {
 
         // Realizar llamada a la API para subir el archivo
-        await uploadAttachment(issueId, selectedFile);
+        await uploadAttachment(issueId, selectedFile, authUser.api_token);
 
         // Reiniciar el estado del archivo seleccionado
         setSelectedFile(null);

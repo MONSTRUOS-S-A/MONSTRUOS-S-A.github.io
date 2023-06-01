@@ -12,9 +12,6 @@ const Header = () => {
     isLoggedIn,
     setIsLoggedIn } = useAuth()
 
-    if (!isLoggedIn)   window.location.href = "/login";
-
-
   return (
     
     <div className="navbar">
@@ -22,11 +19,10 @@ const Header = () => {
         <h2 className="navbar-title"><FontAwesomeIcon icon={faRocket} size = "sm" style={{color: "#ffffff",}} /> Fiber Issues</h2>
       </Link>
       <div className="navbar-content">
-        <a href={`/user_detail/${authUser.id}`}>
+        <Link to={`/user_page/${authUser.id}/`}>
           <img className="profile-icon" src={authUser.profile_picture} alt="Profile Icon" />
-        </a>
-        <p>{authUser.first_name} {authUser.last_name}</p>
-        <a className="btn-sign-out" href="/login_page/logout/"><i className='bx bx-log-out'></i>Log out</a>
+        </Link>
+        <a className="btn-sign-out" href="/login"><i className='bx bx-log-out'></i>Log out</a>
       </div>
     </div>
   );
