@@ -20,8 +20,6 @@ const WelcomeScreen = () => {
     async function loadUsersAndTokens() {
       const res = await getAllUsersAndTokens();
       setUsers(res.data);
-      const newUser = res.data.find((user) => user.id === 14);
-      setAuthUser(newUser);
     };
 
     loadUsersAndTokens();
@@ -50,6 +48,7 @@ const WelcomeScreen = () => {
           <p className="welcome-phrase">A lot of issues are waiting for you!</p>
           <div className="wrap-content">
             <select id="login_user" name="login_user" onChange={handleLogin}>
+              <option selected="true" disabled="disabled">  -- Select User --</option>    
               {
               users.map((user) => (
                 <option key={user.id} value={user.id}>

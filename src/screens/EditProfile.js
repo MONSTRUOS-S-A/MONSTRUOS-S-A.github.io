@@ -8,18 +8,29 @@ import Header from '../components/Header';
 import { postEditProfile } from '../API/issues.api';
 import { useParams } from 'react-router-dom';
 import { getUser } from '../API/issues.api';
+import { useAuth } from '../context/AuthContext';
+import { waitFor } from '@testing-library/react';
+
 
 const EditProfile = () => {
+    const {
+        authUser,
+        setAuthUser,
+        isLoggedIn,
+        setIsLoggedIn } = useAuth()
 
     const {id} = useParams();
     const [inputs, setInputs] = useState({});
     const [content, setContent] = useState({});
+    const [bio, setBio] = useState('');
+    const [newProfilePicture, setNewProfilePicture] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         async function loadIssues() {
           const res = await getUser(id);
           setContent(res.data);
+          setBio(res.data.bio || '');
         }
         loadIssues();
       }, []);
@@ -27,19 +38,26 @@ const EditProfile = () => {
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}))
+        setBio(value);
+    }
+
+    const handleImageSubmit = async (event) => {
+        const file = event.target.files[0];
+        try {
+            await postEditProfile(id, bio, file, authUser.api_token);
+            navigate(`/user_page/${id}`);
+        } catch (error) {console.error(error);}
     }
 
     const handleGoProfile= () => {
         navigate(`/user_page/${id}`);
     };
 
-    const handleSubmit = (event) => {
-        const data = {
-            new_bio: inputs.new_bio,
-            new_profile_picture: inputs.new_profile_picture,
-        };
-        postEditProfile(id, data);
+    const handleSubmit = async (event) => {
+        try {
+            await postEditProfile(id, bio, newProfilePicture, authUser.api_token);
+            navigate(`/user_page/${id}`);
+        } catch (error) {console.error(error);}
     }
 
     return (
@@ -63,14 +81,13 @@ const EditProfile = () => {
 
                     {/* Upload New Image */}
                     <form method="post" encType="multipart/form-data">
-                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
                         <label htmlFor="file-upload" className="btn-select-change-avatar">
                         <input
                             type="file"
                             id="file-upload"
                             name="new_profile_picture"
                             style={{ display: 'none' }}
-                            onChange={() => {}}
+                            onChange={handleImageSubmit}
                         />
                         <i className="bx bx-image-alt"></i> Change
                         </label>
@@ -106,26 +123,23 @@ const EditProfile = () => {
 
                     {/* Bio */}
                     <h4>Bio </h4>
-                    <form onSubmit={handleSubmit} method='put'>
-                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
-                        <textarea
-                            className="custom-input"
-                            name="new_bio"
-                            maxLength="200"
-                            value={inputs.new_bio || ""}
-                            required
-                            onChange={handleChange}
-                        ></textarea>
-                        {/* Buttons */}
-                        <div className="edit-btn-section">
-                            <a className="btn-go-back" onClick={handleGoProfile}>
-                            <i className="bx bx-arrow-back"></i> Go back
-                            </a>
-                            <button type="submit" className="btn-go-back" style={{ marginLeft: '10px', cursor: 'pointer' }}>
-                            <i className="bx bxs-save"></i>Save changes
-                            </button>
-                        </div>
-                    </form>
+                    <textarea
+                        className="custom-input"
+                        name="new_bio"
+                        maxLength="200"
+                        value={bio}
+                        required
+                        onChange={handleChange}
+                    ></textarea>
+                    {/* Buttons */}
+                    <div className="edit-btn-section">
+                        <a className="btn-go-back" onClick={handleGoProfile}>
+                        <i className="bx bx-arrow-back"></i> Go back
+                        </a>
+                        <a className="btn-go-back" style={{ marginLeft: '10px', cursor: 'pointer' }} onClick={handleSubmit}>
+                        <i className="bx bxs-save"></i>Save changes
+                        </a>
+                    </div>
                 </section>
                 </div>
             </div>

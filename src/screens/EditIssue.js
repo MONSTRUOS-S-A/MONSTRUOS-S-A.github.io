@@ -30,7 +30,6 @@ const EditIssue = () => {
             {/* Issue Form */}
             <form method="POST" action={{}}>
               {/* Django CSRF Token */}
-              <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
     
               <article className="issue-description">
                 <h4>Status:</h4>
