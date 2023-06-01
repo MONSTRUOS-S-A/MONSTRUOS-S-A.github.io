@@ -68,3 +68,11 @@ export function addIssue(issueData) {
 
   return issuesApi.post('/issues', requestBody, { headers });
 }
+
+export function bulkInsertIssues(data) {
+  return issuesApi.post('/issues/bulkinsert', data, {
+    headers: {
+      Authorization: 'Bearer 123456789',
+    },
+  });
+}

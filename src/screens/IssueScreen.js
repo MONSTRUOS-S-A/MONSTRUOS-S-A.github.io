@@ -18,7 +18,7 @@ const IssueScreen = () => {
     isLoggedIn,
     setIsLoggedIn } = useAuth()
 
-  const {id} = useParams();
+  const { id } = useParams();
   const [issue, setIssue] = useState(null);
   const [attachments, setAttachments] = useState([]);
   const [activities, setActivities] = useState([]);
@@ -46,7 +46,7 @@ const IssueScreen = () => {
       try {
         const issueResponse = await getIssueDetailed(id);
         setIssue(issueResponse.data);
-  
+
         const attachmentsResponse = await getAttachments(id);
         setAttachments(attachmentsResponse.data);
 
@@ -66,10 +66,10 @@ const IssueScreen = () => {
         console.error(error);
       }
     }
-  
+
     fetchData();
   }, [id]);
-  
+
   if (!issue) {
     return <p>Loading...</p>;
   }
@@ -80,200 +80,200 @@ const IssueScreen = () => {
       <Header />
       <main className="main-issue">
         <section className="issue-wrap">
-        <header className="issue-header-wrap">
-          <section className="issue-title-header">
-            <div className="left-title-wrap">
-              <h1 className="issue-number">#{issue.issue_id}</h1>
-              <h1>{issue.subject}</h1>
-              {issue.deadline_date != null && (
-                <div className="duedate-wrap">
-                  <i className="bx bx-time-five"></i>
-                  <p>{issue.deadline_date}</p>
-                </div>
-              )}
-            </div>
-            
-            {(issue.is_blocked === false ||
-              (issue.issue_blocking_user.id === authUser.id &&
-                issue.is_blocked === true)) && (
-              <Link
-                id="edit-issue"
-                className="btn-setting"
-                href={`/${issue.issue_id}/edit`}
-              >
-                Edit<i className="bx bx-edit"></i>
-              </Link>
+          <header className="issue-header-wrap">
+            <section className="issue-title-header">
+              <div className="left-title-wrap">
+                <h1 className="issue-number">#{issue.issue_id}</h1>
+                <h1>{issue.subject}</h1>
+                {issue.deadline_date != null && (
+                  <div className="duedate-wrap">
+                    <i className="bx bx-time-five"></i>
+                    <p>{issue.deadline_date}</p>
+                  </div>
                 )}
-          </section>
-          <h5>ISSUE</h5>
-          {issue.is_blocked === true && (
-            <div className="blocked-wrap">
-              <strong>
-                <i className="bx bx-lock-alt"></i>Blocked
-              </strong>
-              <p>
-                This issue is currently blocked by{" "}
-                {issue.issue_blocking_user.first_name}
-              </p>
-            </div>
-          )}
-          <div className="issue-title-footer">
-            <div className="tag-section">
-              <article className="tag">problemon</article>
-              <article className="tag">tusmu</article>
-              <button className="btn-add-tag">Add tag +</button>
-            </div>
-            <div className="created-by-wrap">
-              <div className="created-by-text">
-                <p>
-                  Created by{" "}
-                  {`${issue.issue_creator_user.first_name} ${issue.issue_creator_user.last_name}`}
-                </p>
-                <p className="created-date-issue">{issue.creation_date_time}</p>
               </div>
-         
-              <Link to={`/user_page/${issue.issue_creator_user.id}/`}>
-                <img className="profile-img" src={issue.issue_creator_user.profile_picture} alt="" />
-              </Link>
-         
-            </div>
-          </div>
-        </header>
 
-        {/**PARTE DE LA DESCRIPTION */}
-        <article className="issue-description">
-          <h4>Description</h4>
-          <p>{issue.description}</p>
-        </article>
-        
-        {/**PARTE DE ATACHMENTS */}
-        <div className="attachments-section">
+              {(issue.is_blocked === false ||
+                (issue.issue_blocking_user.id === authUser.id &&
+                  issue.is_blocked === true)) && (
+                  <Link
+                    id="edit-issue"
+                    className="btn-setting"
+                    href={`/${issue.issue_id}/edit`}
+                  >
+                    Edit<i className="bx bx-edit"></i>
+                  </Link>
+                )}
+            </section>
+            <h5>ISSUE</h5>
+            {issue.is_blocked === true && (
+              <div className="blocked-wrap">
+                <strong>
+                  <i className="bx bx-lock-alt"></i>Blocked
+                </strong>
+                <p>
+                  This issue is currently blocked by{" "}
+                  {issue.issue_blocking_user.first_name}
+                </p>
+              </div>
+            )}
+            <div className="issue-title-footer">
+              <div className="tag-section">
+                <article className="tag">problemon</article>
+                <article className="tag">tusmu</article>
+                <button className="btn-add-tag">Add tag +</button>
+              </div>
+              <div className="created-by-wrap">
+                <div className="created-by-text">
+                  <p>
+                    Created by{" "}
+                    {`${issue.issue_creator_user.first_name} ${issue.issue_creator_user.last_name}`}
+                  </p>
+                  <p className="created-date-issue">{issue.creation_date_time}</p>
+                </div>
+
+                <Link to={`/user_page/${issue.issue_creator_user.id}/`}>
+                  <img className="profile-img" src={issue.issue_creator_user.profile_picture} alt="" />
+                </Link>
+
+              </div>
+            </div>
+          </header>
+
+          {/**PARTE DE LA DESCRIPTION */}
+          <article className="issue-description">
+            <h4>Description</h4>
+            <p>{issue.description}</p>
+          </article>
+
+          {/**PARTE DE ATACHMENTS */}
+          <div className="attachments-section">
             <div className="attachments-field">
               <p>{attachments.length} attachments</p>
 
               <form className="attachment-form-wrap" method="POST" encType="multipart/form-data">
                 {/* Coloca aquí el token CSRF si es necesario */}
-               
+
                 <button className="btn-upload" type="submit">Upload</button>
               </form>
             </div>
 
-              <div className="attachments-wrap">
-                {attachments.map((attachment) => (
-                  <div className="attachment" key={attachment.pk}>
-                    <Link to={attachment.attachment_file} className="attachment-name" target="_blank" download>
-                      <i className="bx bx-paperclip bx-rotate-90"></i>
-                      {attachment.attachment_name}
-                    </Link>
+            <div className="attachments-wrap">
+              {attachments.map((attachment) => (
+                <div className="attachment" key={attachment.pk}>
+                  <Link to={attachment.attachment_file} className="attachment-name" target="_blank" download>
+                    <i className="bx bx-paperclip bx-rotate-90"></i>
+                    {attachment.attachment_name}
+                  </Link>
 
-                    <form method="POST" action={`/delete_attachment/${attachment.pk}`}>
-                      {/* Coloca aquí el token CSRF si es necesario */}
-                      <button className="btn-delete-attachment" type="submit">
-                        <i className="bx bx-trash"></i>
-                        Delete
-                      </button>
-                    </form>
-                  </div>
+                  <form method="POST" action={`/delete_attachment/${attachment.pk}`}>
+                    {/* Coloca aquí el token CSRF si es necesario */}
+                    <button className="btn-delete-attachment" type="submit">
+                      <i className="bx bx-trash"></i>
+                      Delete
+                    </button>
+                  </form>
+                </div>
               ))}
-              </div>
-        </div>
-        
-        {/**PARTE DE activities */}
-        <section className="activities-wrap">
-          <p>{activities.length} activities</p>
-          {activities.map((activity) => (
-            <article className="activitie">
-              <Link to={`/user_page/${activity.activity_author.id}/`}>
-                <img className="profile-img" src={activity.activity_author.profile_picture} alt="" />
-              </Link>
-              <div className="activitie-main">
-                <div className="activitie-header">
-                  <p className="name-activitie">{`${activity.activity_author.first_name}  > ${activity.activity_author.first_name}`}</p>
-                  <p className="date-activie">{activity.creation_date_time}</p>
-                </div>
-                <div className="activity-status">
-                  <p className="activity-tag">{activity.action}</p>
-                  {activity.action === 'MOD' && (
-                    <>
-                      <p>STATUS: {activity.a5}  &gt; {activity.a6}</p>
-                      <p>SUBJECT: {activity.a1}  &gt; {activity.a2}</p>
-                      <p>DESCRIPTION: {activity.a3}  &gt; {activity.a4}</p>
-                    </>
-                  )}
-                  {activity.action === 'PRY' && (
-                    <p className="first-field">{activity.a1}  &gt; {activity.a2}</p>
-                  )}
-                  {activity.action === 'SEV' && (
-                    <p className="first-field">{activity.a1}  &gt; {activity.a2}</p>
-                  )}
-                  {activity.action === 'TYP' && (
-                    <p className="first-field">{activity.a1}  &gt; {activity.a2}</p>
-                  )}
-                  {activity.action === 'TAG' && (
-                    <p className="first-field">{activity.a1}</p>
-                  )}
-                  {activity.action === 'AAT' && (
-                    <p className="first-field">{activity.a1}</p>
-                  )}
-                  {activity.action === 'DAT' && (
-                    <p className="first-field">{activity.a1}</p>
-                  )}
-                  {activity.action === 'ASS' && (
-                    <p className="first-field">{activity.a1}  &gt; {activity.a2}</p>
-                  )}
-                  {activity.action === 'BCK' && (
-                    <p className="first-field">{activity.a1} &gt; {activity.a2}</p>
-                  )}
-                  {activity.action === 'DUE' && (
-                    <p className="first-field">{activity.a7}  &gt; {activity.a8}</p>
-                  )}
-                </div>
-              </div>
-            </article>
-          ))}
-        </section>
-
-        {/**Parte de comentarios */}
-        <section className="activities-wrap">
-          <p>{comments.length} comments</p>
-          {comments.map(comment => (
-            <article className="activitie" key={comment.comment_author}>
-              <Link to={`/user_page/${comment.comment_author.id}/`}>
-                <img className="profile-img" src={comment.comment_author.profile_picture} alt="" />
-              </Link>
-              <div className="activitie-main">
-                <div className="activitie-header">
-                  <p className="name-activitie">{`${comment.comment_author.first_name} ${comment.comment_author.last_name}`}</p>
-                  <p className="date-activitie">{comment.creation_date_time}</p>
-                </div>
-                <small>{comment.comment_content}</small>
-              </div>
-            </article>
-          ))}
-          <hr />
-          <div className="comment-field">
-            <small><i className="bx bx-chat"></i> Add your comment</small>
-            <div className="comment-form-wrap">
-              <img className="profile-img" src={authUser.profile_picture} alt="" />
-              <form className="comment-form" method="post">
-                {
-                  /**
-                   * <input type="hidden" name="csrfmiddlewaretoken" value={} />
-                
-                   */
-                }
-                <input className = "custom-input" type="text" name="content" placeholder='Say something!' />
-                
-                {/*commentForm.content.errors && <p className="text-danger">{commentForm.content.errors}</p>*/}
-                <button type="submit" className="btn-post-comment"><i className="bx bx-send"></i> Post</button>
-              </form>
             </div>
           </div>
+
+          {/**PARTE DE activities */}
+          <section className="activities-wrap">
+            <p>{activities.length} activities</p>
+            {activities.map((activity) => (
+              <article className="activitie">
+                <Link to={`/user_page/${activity.activity_author.id}/`}>
+                  <img className="profile-img" src={activity.activity_author.profile_picture} alt="" />
+                </Link>
+                <div className="activitie-main">
+                  <div className="activitie-header">
+                    <p className="name-activitie">{`${activity.activity_author.first_name}  > ${activity.activity_author.first_name}`}</p>
+                    <p className="date-activie">{activity.creation_date_time}</p>
+                  </div>
+                  <div className="activity-status">
+                    <p className="activity-tag">{activity.action}</p>
+                    {activity.action === 'MOD' && (
+                      <>
+                        <p>STATUS: {activity.a5}  &gt; {activity.a6}</p>
+                        <p>SUBJECT: {activity.a1}  &gt; {activity.a2}</p>
+                        <p>DESCRIPTION: {activity.a3}  &gt; {activity.a4}</p>
+                      </>
+                    )}
+                    {activity.action === 'PRY' && (
+                      <p className="first-field">{activity.a1}  &gt; {activity.a2}</p>
+                    )}
+                    {activity.action === 'SEV' && (
+                      <p className="first-field">{activity.a1}  &gt; {activity.a2}</p>
+                    )}
+                    {activity.action === 'TYP' && (
+                      <p className="first-field">{activity.a1}  &gt; {activity.a2}</p>
+                    )}
+                    {activity.action === 'TAG' && (
+                      <p className="first-field">{activity.a1}</p>
+                    )}
+                    {activity.action === 'AAT' && (
+                      <p className="first-field">{activity.a1}</p>
+                    )}
+                    {activity.action === 'DAT' && (
+                      <p className="first-field">{activity.a1}</p>
+                    )}
+                    {activity.action === 'ASS' && (
+                      <p className="first-field">{activity.a1}  &gt; {activity.a2}</p>
+                    )}
+                    {activity.action === 'BCK' && (
+                      <p className="first-field">{activity.a1} &gt; {activity.a2}</p>
+                    )}
+                    {activity.action === 'DUE' && (
+                      <p className="first-field">{activity.a7}  &gt; {activity.a8}</p>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </section>
+
+          {/**Parte de comentarios */}
+          <section className="activities-wrap">
+            <p>{comments.length} comments</p>
+            {comments.map(comment => (
+              <article className="activitie" key={comment.comment_author}>
+                <Link to={`/user_page/${comment.comment_author.id}/`}>
+                  <img className="profile-img" src={comment.comment_author.profile_picture} alt="" />
+                </Link>
+                <div className="activitie-main">
+                  <div className="activitie-header">
+                    <p className="name-activitie">{`${comment.comment_author.first_name} ${comment.comment_author.last_name}`}</p>
+                    <p className="date-activitie">{comment.creation_date_time}</p>
+                  </div>
+                  <small>{comment.comment_content}</small>
+                </div>
+              </article>
+            ))}
+            <hr />
+            <div className="comment-field">
+              <small><i className="bx bx-chat"></i> Add your comment</small>
+              <div className="comment-form-wrap">
+                <img className="profile-img" src={authUser.profile_picture} alt="" />
+                <form className="comment-form" method="post">
+                  {
+                    /**
+                     * <input type="hidden" name="csrfmiddlewaretoken" value={} />
+                  
+                     */
+                  }
+                  <input className="custom-input" type="text" name="content" placeholder='Say something!' />
+
+                  {/*commentForm.content.errors && <p className="text-danger">{commentForm.content.errors}</p>*/}
+                  <button type="submit" className="btn-post-comment"><i className="bx bx-send"></i> Post</button>
+                </form>
+              </div>
+            </div>
+          </section>
         </section>
-        </section>
-        
+
         {/**PART DRETA DE LA PANTALLA */}
-        <section className = "issue-right-side">
+        <section className="issue-right-side">
           <section className="types-selectors-wrap">
             <article className="card-type">
               <p className="text-title">type</p>
@@ -321,7 +321,7 @@ const IssueScreen = () => {
         <hr />
 
         {/**PARTE DE ASIGNED  */}
-       
+
         <section className="asigned-to-section">
           <p>Watchers</p>
           <div className="asigned-to-section-wrap">
@@ -373,12 +373,12 @@ const IssueScreen = () => {
                   </button>
                 </form>
                 */}
-              </div>
-              
-                    
-               
-          </section>
-    
+          </div>
+
+
+
+        </section>
+
 
 
       </main>
